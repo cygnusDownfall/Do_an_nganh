@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CSDL.cs" />
     <Compile Include="Model\JSON.cs" />
     <Compile Include="Model\MonAn.cs" />
+    <Compile Include="Model\Order.cs" />
     <Compile Include="UI\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
