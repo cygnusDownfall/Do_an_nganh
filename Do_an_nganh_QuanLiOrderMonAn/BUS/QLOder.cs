@@ -4,7 +4,7 @@ using Do_an_nganh_QuanLiOrderMonAn.Model;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.BUS
 {
-    internal class QLOder
+    public class QLOder
     {
 
     }

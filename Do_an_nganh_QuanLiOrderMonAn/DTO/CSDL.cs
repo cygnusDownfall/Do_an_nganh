@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Driver;
-// Replace the uri string with your MongoDB deployment's connection string.
+
 
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
@@ -30,7 +30,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         public BsonDocument GetData(string TenBang)
         {
             connect();
-           // return database.GetCollection<BsonDocument>(TenBang);
+            return database.GetCollection<BsonDocument>(TenBang).ToBsonDocument();
         }
 
     }

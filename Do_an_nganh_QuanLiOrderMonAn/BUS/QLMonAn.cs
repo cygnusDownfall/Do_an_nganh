@@ -5,7 +5,7 @@ using Do_an_nganh_QuanLiOrderMonAn.DTO;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.BUS
 {
-    internal class QLMonAn
+    public  class QLMonAn
     {
         public List<MonAn> MonAnPhucVu
         {

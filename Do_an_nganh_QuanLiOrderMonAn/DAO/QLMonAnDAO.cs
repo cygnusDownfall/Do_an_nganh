@@ -8,7 +8,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
     {
         public static List<MonAn> MonAnPhucVu { get
             {
-                return CSDL.
+                return new List<MonAn>();
             } 
         }
         public void  ThemMonAn()
