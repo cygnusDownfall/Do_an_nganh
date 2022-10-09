@@ -1,12 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Do_an_nganh_QuanLiOrderMonAn.DTO;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
-    internal class QLMonAnDAO
+    public  class QLMonAnDAO
     {
+        public static List<MonAn> MonAnPhucVu { get
+            {
+                return CSDL.
+            } 
+        }
+        public void  ThemMonAn()
+        {
+
+        }
+        public void CapNhatMonAn()
+        {
+
+        }
+        public void XoaMonAn()
+        {
+
+        }
+        
     }
 }

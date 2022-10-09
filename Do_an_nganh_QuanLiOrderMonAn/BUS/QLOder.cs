@@ -6,5 +6,6 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
 {
     internal class QLOder
     {
+
     }
 }
