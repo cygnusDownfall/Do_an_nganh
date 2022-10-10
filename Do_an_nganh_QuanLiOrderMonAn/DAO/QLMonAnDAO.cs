@@ -6,9 +6,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public  class QLMonAnDAO
     {
-        public static List<MonAn> MonAnPhucVu { get
+        List<MonAn> MonAnPhucVu;
+        QLMonAnDAO() { }
+        public static QLMonAnDAO Instance = new QLMonAnDAO();
+        public List<MonAn> MenuMonAn { get
             {
-                return new List<MonAn>();
+                if (MonAnPhucVu == null)
+                {
+                    MonAnPhucVu = CSDL.instance.LayMenuMonAn();
+                }
+                return MonAnPhucVu;
             } 
         }
         public void  ThemMonAn()

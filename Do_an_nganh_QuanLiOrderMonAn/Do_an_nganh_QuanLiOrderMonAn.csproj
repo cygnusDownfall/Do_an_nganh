@@ -135,6 +135,7 @@
     <Compile Include="BUS\QLMonAn.cs" />
     <Compile Include="BUS\QLOder.cs" />
     <Compile Include="DAO\QLMonAnDAO.cs" />
+    <Compile Include="DAO\QLOrderDAO.cs" />
     <Compile Include="DTO\CSDL.cs" />
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\MonAn.cs" />

@@ -7,11 +7,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
 {
     public  class QLMonAn
     {
-        public List<MonAn> MonAnPhucVu
+        QLMonAn()
+        {
+
+        }
+        public static  QLMonAn instance = new QLMonAn();
+        public List<MonAn> MenuMonAn
         {
             get
             {
-                return QLMonAnDAO.MonAnPhucVu;
+                return QLMonAnDAO.Instance.MenuMonAn;
             }
         }
         public void ThemMonAn()
