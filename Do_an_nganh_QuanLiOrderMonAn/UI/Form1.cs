@@ -21,5 +21,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn
                 testlv.Items.Add(x.TenMonAn);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            QLMonAn.instance.ThemMonAn(textBox1.Text,Convert.ToInt32(textBox2.Text));
+
+            testlv.Items.Clear();
+            foreach (var x in QLMonAn.instance.MenuMonAn)
+            {
+                testlv.Items.Add(x.TenMonAn);
+            }
+        }
     }
 }

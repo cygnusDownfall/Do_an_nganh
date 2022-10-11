@@ -21,7 +21,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         IMongoDatabase database;
         
         //static ICollection<BsonDocument> collection;
-        public static void connect(string Database = "QL_order", string usename = "downfall", string password = "phammai0903")
+        public void connect(string Database = "QL_order", string usename = "downfall", string password = "phammai0903")
         {
             if (client == null)
             {
@@ -73,9 +73,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             
         }
-        public void Remove(string TenBang, BsonDocument elements)
+        public void Remove(string TenBang, FilterDefinition<BsonDocument> filter)
         {
-
+            var data = GetCollection(TenBang);
+            if (filter != null)
+            {           
+                data.DeleteMany(filter);
+            }
         }
         #endregion
 
@@ -93,5 +97,6 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             return monAns;
         }
+
     }
 }

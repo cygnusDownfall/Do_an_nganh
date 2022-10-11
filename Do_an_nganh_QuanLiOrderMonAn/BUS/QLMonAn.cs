@@ -19,9 +19,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
                 return QLMonAnDAO.Instance.MenuMonAn;
             }
         }
-        public void ThemMonAn()
+        public void ThemMonAn(string tenmonan, int gia)
         {
-
+            QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia);
         }
         public void CapNhatMonAn()
         {

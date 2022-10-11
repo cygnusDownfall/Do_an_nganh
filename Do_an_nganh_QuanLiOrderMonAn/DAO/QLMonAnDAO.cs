@@ -4,23 +4,32 @@ using Do_an_nganh_QuanLiOrderMonAn.DTO;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
-    public  class QLMonAnDAO
+    public class QLMonAnDAO
     {
         List<MonAn> MonAnPhucVu;
         QLMonAnDAO() { }
         public static QLMonAnDAO Instance = new QLMonAnDAO();
-        public List<MonAn> MenuMonAn { get
+        public List<MonAn> MenuMonAn
+        {
+            get
             {
                 if (MonAnPhucVu == null)
                 {
                     MonAnPhucVu = CSDL.instance.LayMenuMonAn();
                 }
                 return MonAnPhucVu;
-            } 
+            }
         }
-        public void  ThemMonAn()
+        public void ThemMonAn(string tenmonan, int gia)
         {
 
+            CSDL.instance.Insert("MonAnPhucVu",
+                new MongoDB.Bson.BsonDocument
+                {
+                    {"Name",tenmonan },
+                    {"Cost",gia }
+                }
+            ) ;
         }
         public void CapNhatMonAn()
         {
@@ -30,6 +39,6 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
 
         }
-        
+
     }
 }
