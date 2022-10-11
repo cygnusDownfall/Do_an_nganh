@@ -21,7 +21,15 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         }
         public void ThemMonAn(string tenmonan, int gia)
         {
-            QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia);
+            try
+            {
+                QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+            }
+            
         }
         public void CapNhatMonAn()
         {

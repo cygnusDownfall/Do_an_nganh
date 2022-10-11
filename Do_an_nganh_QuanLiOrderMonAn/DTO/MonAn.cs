@@ -10,7 +10,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         public string id { get => ID; }
 
         string _TenMonAn;
-        public string TenMonAn { get { return _TenMonAn; } set { _TenMonAn = value; } }
+        public string TenMonAn { get { return _TenMonAn; }  }
 
         int _gia;
         public int Gia { get { return _gia; } set { _gia = value; } }
@@ -20,6 +20,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             ID = Id;
             _TenMonAn = tenmon;
             _gia = gia;
+            
         }
     }
 }

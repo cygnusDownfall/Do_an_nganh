@@ -1,21 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     public class Order
     {
+        string id;
         List<MonAn> dsorder;
         public List<MonAn> DanhSachMonAnDuocOrder { get => dsorder; }
-        public Order(List<string> IDs)
+        DateTime NgayTao;
+        public DateTime Ngay { get => NgayTao; }
+        public int tongtien
         {
-            dsorder = new List<MonAn>();
-            foreach(var x in IDs)
+            get
             {
-
+                if(dsorder == null) { return 0; }
+                int tong = 0;
+                foreach(var x in dsorder)
+                {
+                    tong += x.Gia;
+                }
+                return tong;
             }
+        }
+        public Order(string id,List<MonAn> mon)
+        {
+            this.id = id;
+            dsorder = mon;
+            NgayTao = DateTime.Now;
+        }
+        public Order(string id, List<MonAn> mon, DateTime ngaytao)
+        {
+            this.id = id;
+            dsorder = mon;
+            NgayTao = ngaytao;
         }
     }
 }

@@ -11,25 +11,25 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     {
         CSDL()
         {
-      
             connect();
         }
 
         public static CSDL instance = new CSDL();
+        
+
 
         MongoClient client;
         IMongoDatabase database;
-        
+
         //static ICollection<BsonDocument> collection;
         public void connect(string Database = "QL_order", string usename = "downfall", string password = "phammai0903")
         {
             if (client == null)
             {
-                var settings = MongoClientSettings.FromConnectionString(String.Format("mongodb+srv://{0}:{1}@cluster0.6vmfiqj.mongodb.net/?retryWrites=true&w=majority",usename,password));
+                var settings = MongoClientSettings.FromConnectionString(String.Format("mongodb+srv://{0}:{1}@cluster0.6vmfiqj.mongodb.net/?retryWrites=true&w=majority", usename, password));
                 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
                 client = new MongoClient(settings);
                 database = client.GetDatabase(Database);
-
 
             }
 
@@ -41,9 +41,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             return database.GetCollection<BsonDocument>(TenBang);
         }
         #region query,insert,update,remove
-        public List<BsonDocument> Query(string TenBang,FilterDefinition<BsonDocument> filter)
+        public List<BsonDocument> Query(string TenBang, FilterDefinition<BsonDocument> filter)
         {
-            var data = GetCollection(TenBang); 
+            var data = GetCollection(TenBang);
             var kq = data.Find(filter).ToList();
             return kq;
         }
@@ -53,9 +53,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             return Query(TenBang, filter);
         }
 
-        public void Insert(string TenBang,BsonDocument elements)
+        public void Insert(string TenBang, BsonDocument elements)
         {
-            var data =GetCollection(TenBang);
+            var data = GetCollection(TenBang);
             data.InsertOne(elements);
         }
         public void Insert(string TenBang, BsonDocument[] elements)
@@ -63,23 +63,44 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             var data = GetCollection(TenBang);
             data.InsertMany(elements);
         }
-        public void Update(string TenBang, FilterDefinition<BsonDocument> filter,string propertie,string value)
+        public void Update(string TenBang, string key, string propertie, string value)
         {
             var data = GetCollection(TenBang);
-            if (filter != null)
+            if (key != null)
             {
                 var update = Builders<BsonDocument>.Update.Set(propertie, value);
+                var filter = Builders<BsonDocument>.Filter.Eq("Name", key);
                 data.UpdateOne(filter, update);
             }
-            
+
+        }
+        public void UpdateMany(string TenBang, FilterDefinition<BsonDocument> filter, UpdateDefinition<BsonDocument> update)
+        {
+            var data = GetCollection(TenBang);
+
+            data.UpdateMany(filter, update);
         }
         public void Remove(string TenBang, FilterDefinition<BsonDocument> filter)
         {
             var data = GetCollection(TenBang);
             if (filter != null)
-            {           
+            {
                 data.DeleteMany(filter);
             }
+        }
+        public void Remove(string TenBang, string key)
+        {
+            var data = GetCollection(TenBang);
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", key);
+            data.DeleteMany(filter);
+
+        }
+        public void Remove(string TenBang, string[] keys)
+        {
+            var data = GetCollection(TenBang);
+            var filter = Builders<BsonDocument>.Filter.In("Name", keys);
+            data.DeleteMany(filter);
+
         }
         #endregion
 

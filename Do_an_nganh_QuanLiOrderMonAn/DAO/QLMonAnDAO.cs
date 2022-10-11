@@ -31,13 +31,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                 }
             ) ;
         }
-        public void CapNhatMonAn()
+        public void CapNhatMonAn(string tenmonan,string thuoctinh,string value)
         {
-
+            CSDL.instance.Update("MonAnPhucVu", tenmonan, thuoctinh, value);
         }
-        public void XoaMonAn()
+        public void XoaMonAn(string key)
         {
-
+            CSDL.instance.Remove("MonAnPhucVu", key);
         }
 
     }
