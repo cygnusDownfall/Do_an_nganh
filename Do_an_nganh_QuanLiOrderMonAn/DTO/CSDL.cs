@@ -17,8 +17,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
         public static CSDL instance = new CSDL();
 
-        static MongoClient client;
-        static IMongoDatabase database;
+        MongoClient client;
+        IMongoDatabase database;
+        
+        //static ICollection<BsonDocument> collection;
         public static void connect(string Database = "QL_order", string usename = "downfall", string password = "phammai0903")
         {
             if (client == null)
@@ -34,28 +36,57 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             database = client.GetDatabase(Database);
 
         }
-        public static void testconnect2()
+        public IMongoCollection<BsonDocument> GetCollection(string TenBang)
         {
-            // Replace <connection string> with your MongoDB deployment's connection string.
-            var settings = MongoClientSettings.FromConnectionString("<connection string>");
-            // Set the version of the Stable API on the client.
-            settings.ServerApi = new ServerApi(ServerApiVersion.V1);
-            var client = new MongoClient(settings);
-        }
-        public static IMongoCollection<BsonDocument> GetData(string TenBang)
-        {
-            //connect();
             return database.GetCollection<BsonDocument>(TenBang);
         }
+        #region query,insert,update,remove
+        public List<BsonDocument> Query(string TenBang,FilterDefinition<BsonDocument> filter)
+        {
+            var data = GetCollection(TenBang); 
+            var kq = data.Find(filter).ToList();
+            return kq;
+        }
+        public List<BsonDocument> GetAllInCollection(string TenBang)
+        {
+            var filter = Builders<BsonDocument>.Filter.Empty;
+            return Query(TenBang, filter);
+        }
+
+        public void Insert(string TenBang,BsonDocument elements)
+        {
+            var data =GetCollection(TenBang);
+            data.InsertOne(elements);
+        }
+        public void Insert(string TenBang, BsonDocument[] elements)
+        {
+            var data = GetCollection(TenBang);
+            data.InsertMany(elements);
+        }
+        public void Update(string TenBang, FilterDefinition<BsonDocument> filter,string propertie,string value)
+        {
+            var data = GetCollection(TenBang);
+            if (filter != null)
+            {
+                var update = Builders<BsonDocument>.Update.Set(propertie, value);
+                data.UpdateOne(filter, update);
+            }
+            
+        }
+        public void Remove(string TenBang, BsonDocument elements)
+        {
+
+        }
+        #endregion
+
 
         public List<MonAn> LayMenuMonAn()
         {
             connect();
             List<MonAn> monAns = new List<MonAn>();
-            var data = CSDL.GetData("MonAnPhucVu");
 
-            var filter = Builders<BsonDocument>.Filter.Empty;
-            var kq = data.Find(filter).ToList();
+            var kq = GetAllInCollection("MonAnPhucVu");
+
             for (int i = 0; i < 1; i++)
             {
                 monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32()));
