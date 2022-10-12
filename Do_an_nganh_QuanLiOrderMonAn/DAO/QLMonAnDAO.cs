@@ -39,9 +39,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             CSDL.instance.Update("MonAnPhucVu", tenmonan, thuoctinh, value);
         }
-        public void XoaMonAn(string key)
+        public void XoaMonAn(string tenmon)
         {
-            CSDL.instance.Remove("MonAnPhucVu", key);
+            CSDL.instance.Remove("MonAnPhucVu", tenmon);
         }
 
     }

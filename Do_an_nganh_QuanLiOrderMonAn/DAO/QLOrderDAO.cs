@@ -26,5 +26,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             CSDL.instance.Update("Order", tenorder, thuoctinh, value);
         }
+        public void XoaOrder(string tenOrder)
+        {
+            CSDL.instance.Remove("Order", tenOrder);
+        }
     }
 }

@@ -142,7 +142,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             {
                 Orders.Add(new Order(kq[i].GetValue(0).ToString(),
                     kq[i].GetValue(1).ToString(),
-                    Convert.ToInt32(kq[i].GetValue(2).ToString()),
+                    kq[i].GetValue(2).AsInt32,
                     kq[i].GetValue(3).ToLocalTime()));
             }
             return Orders;
@@ -158,11 +158,21 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             {
                 Orders.Add(new Order(kq[i].GetValue(0).ToString(),
                     kq[i].GetValue(1).ToString(),
-                    Convert.ToInt32(kq[i].GetValue(2).ToString()),
+                   kq[i].GetValue(2).AsInt32,
                     kq[i].GetValue(3).ToLocalTime()));
             }
             return Orders;
         }
 
+        public Account  SearchAccount(string name,string pass)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", name);
+            var ds = Query("Account",filter);
+            BsonDocument bson = ds[0];
+            
+            
+            return new Account(bson.GetValue(0).AsString,bson.GetValue(1).AsString,
+                bson.GetValue(2).AsBoolean);
+        }
     }
 }
