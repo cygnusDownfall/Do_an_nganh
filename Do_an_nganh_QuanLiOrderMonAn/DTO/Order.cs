@@ -7,33 +7,37 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     public class Order
     {
         string id;
-        List<MonAn> dsorder;
-        public List<MonAn> DanhSachMonAnDuocOrder { get => dsorder; }
+        
+        MonAn monan;
+
+        int SoLuong;
+
         DateTime NgayTao;
         public DateTime Ngay { get => NgayTao; }
-        public int tongtien
-        {
-            get
-            {
-                if(dsorder == null) { return 0; }
-                int tong = 0;
-                foreach(var x in dsorder)
-                {
-                    tong += x.Gia;
-                }
-                return tong;
-            }
-        }
-        public Order(string id,List<MonAn> mon)
+
+        public Order(string id)
         {
             this.id = id;
-            dsorder = mon;
+            SoLuong = 1;
             NgayTao = DateTime.Now;
         }
-        public Order(string id, List<MonAn> mon, DateTime ngaytao)
+        public Order(string id, DateTime ngaytao)
         {
             this.id = id;
-            dsorder = mon;
+            SoLuong = 1;
+            NgayTao = ngaytao;
+        }
+        public Order(string id, string tenmonan,int sl, DateTime ngaytao)
+        {
+            this.id = id;
+
+            var data= CSDL.instance.Query("MonAnPhucVu", 
+                MongoDB.Driver.Builders<MongoDB.Bson.BsonDocument>.Filter.Eq("Name",tenmonan));
+
+            monan = new MonAn(data[0].GetValue(0).ToString(), 
+                tenmonan
+                ,Convert.ToInt32(data[0].GetValue(2).ToString()));
+
             NgayTao = ngaytao;
         }
     }

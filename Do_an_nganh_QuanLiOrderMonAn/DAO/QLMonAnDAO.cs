@@ -20,6 +20,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                 return MonAnPhucVu;
             }
         }
+        public List<MonAn> TimMonAn(MongoDB.Driver.FilterDefinition<MongoDB.Bson.BsonDocument> filter)
+        {
+            return CSDL.instance.LayMenuMonAn(filter);
+        }
         public void ThemMonAn(string tenmonan, int gia)
         {
 
@@ -29,9 +33,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                     {"Name",tenmonan },
                     {"Cost",gia }
                 }
-            ) ;
+            );
         }
-        public void CapNhatMonAn(string tenmonan,string thuoctinh,string value)
+        public void CapNhatMonAn(string tenmonan, string thuoctinh, string value)
         {
             CSDL.instance.Update("MonAnPhucVu", tenmonan, thuoctinh, value);
         }

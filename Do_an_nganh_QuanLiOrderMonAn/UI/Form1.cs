@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using Do_an_nganh_QuanLiOrderMonAn.BUS;
 using System.Windows.Forms;
 

@@ -118,6 +118,51 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             return monAns;
         }
+        public List<MonAn> LayMenuMonAn(FilterDefinition<BsonDocument> filter)
+        {
+            connect();
+            List<MonAn> monAns = new List<MonAn>();
+
+            var kq = Query("MonAnPhucVu", filter);
+
+            for (int i = 0; i < 1; i++)
+            {
+                monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32()));
+            }
+            return monAns;
+        }
+        public List<Order> LayDanhSachOrder()
+        {
+            connect();
+            List<Order> Orders = new List<Order>();
+
+            var kq = GetAllInCollection("Order");
+
+            for (int i = 0; i < 1; i++)
+            {
+                Orders.Add(new Order(kq[i].GetValue(0).ToString(),
+                    kq[i].GetValue(1).ToString(),
+                    Convert.ToInt32(kq[i].GetValue(2).ToString()),
+                    kq[i].GetValue(3).ToLocalTime()));
+            }
+            return Orders;
+        }
+        public List<Order> LayDanhSachOrder(FilterDefinition<BsonDocument> filter)
+        {
+            connect();
+            List<Order> Orders = new List<Order>();
+
+            var kq = Query("MonAnPhucVu", filter);
+
+            for (int i = 0; i < 1; i++)
+            {
+                Orders.Add(new Order(kq[i].GetValue(0).ToString(),
+                    kq[i].GetValue(1).ToString(),
+                    Convert.ToInt32(kq[i].GetValue(2).ToString()),
+                    kq[i].GetValue(3).ToLocalTime()));
+            }
+            return Orders;
+        }
 
     }
 }
