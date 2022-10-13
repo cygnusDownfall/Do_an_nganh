@@ -21,7 +21,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         MongoClient client;
         IMongoDatabase database;
 
-        //static ICollection<BsonDocument> collection;
+      
         public void connect(string Database = "QL_order", string usename = "downfall", string password = "phammai0903")
         {
             if (client == null)
@@ -50,7 +50,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         public List<BsonDocument> GetAllInCollection(string TenBang)
         {
             var filter = Builders<BsonDocument>.Filter.Empty;
-            return Query(TenBang, filter);
+            try
+            {
+                var res=Query(TenBang, filter);
+                return Query(TenBang, filter);
+            }
+            catch(Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+                return null;
+            }
+            
         }
 
         public void Insert(string TenBang, BsonDocument elements)
@@ -164,15 +174,25 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             return Orders;
         }
 
-        public Account  SearchAccount(string name,string pass)
+        public bool SearchAccount(string name,string pass)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("Name", name);
             var ds = Query("Account",filter);
-            BsonDocument bson = ds[0];
+            if(ds.Count ==0 || ds==null) { return false; }
+            try
+            {
+                BsonDocument bson = ds[0];
+                if (bson.GetValue(2).AsString != pass) { return false; }    
+                Account.instance.init(bson.GetValue(0).AsString, bson.GetValue(1).AsString,
+                    bson.GetValue(2).AsBoolean);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
             
-            
-            return new Account(bson.GetValue(0).AsString,bson.GetValue(1).AsString,
-                bson.GetValue(2).AsBoolean);
         }
     }
 }

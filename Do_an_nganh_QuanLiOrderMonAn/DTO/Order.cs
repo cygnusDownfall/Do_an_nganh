@@ -33,11 +33,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
             var data= CSDL.instance.Query("MonAnPhucVu", 
                 MongoDB.Driver.Builders<MongoDB.Bson.BsonDocument>.Filter.Eq("Name",tenmonan));
-
-            monan = new MonAn(data[0].GetValue(0).ToString(), 
-                tenmonan
-                ,Convert.ToInt32(data[0].GetValue(2).ToString()));
-
+            if (data != null)
+                monan = new MonAn(data[0].GetValue(0).ToString(),
+                    tenmonan
+                    , Convert.ToInt32(data[0].GetValue(2).ToString()));
+            else System.Windows.Forms.MessageBox.Show("Khong tim thay order nao co ten la; {0} !",tenmonan);
             NgayTao = ngaytao;
         }
     }

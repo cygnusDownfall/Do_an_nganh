@@ -24,10 +24,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
             try
             {
                 QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia);
+                System.Windows.Forms.MessageBox.Show("Da them mon an thanh cong !");
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message);
+                System.Windows.Forms.MessageBox.Show("Them mon an khong thanh cong vi loi:"+e.Message);
             }
             
         }
