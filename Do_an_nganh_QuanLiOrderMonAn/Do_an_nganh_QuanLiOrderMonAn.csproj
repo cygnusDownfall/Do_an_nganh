@@ -134,23 +134,23 @@
   <ItemGroup>
     <Compile Include="BUS\QLMonAn.cs" />
     <Compile Include="BUS\QLOder.cs" />
+    <Compile Include="BUS\QLTaiKhoan.cs" />
     <Compile Include="DAO\QLMonAnDAO.cs" />
     <Compile Include="DAO\QLOrderDAO.cs" />
+    <Compile Include="DAO\QLTaiKhoanDAO.cs" />
     <Compile Include="DTO\CSDL.cs" />
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\MonAn.cs" />
     <Compile Include="DTO\Order.cs" />
-    <Compile Include="UI\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="DTO\savesystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UI\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="UI\FormDangNhap_DangKy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormDangNhap_DangKy.Designer.cs">
+      <DependentUpon>FormDangNhap_DangKy.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -161,6 +161,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\FormDangNhap_DangKy.resx">
+      <DependentUpon>FormDangNhap_DangKy.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />
     <None Include="Core\Compression\Snappy\lib\osx\libsnappy64.dylib" />
