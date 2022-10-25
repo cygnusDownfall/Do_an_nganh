@@ -22,7 +22,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         IMongoDatabase database;
 
       
-        public void connect(string Database = "QL_order", string usename = "downfall", string password = "phammai0903")
+        public void connect(string Database = "QL_order", string usename = "", string password = "phammai0903")
         {
             if (client == null)
             {
