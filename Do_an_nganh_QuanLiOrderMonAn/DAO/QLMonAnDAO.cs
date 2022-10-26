@@ -6,18 +6,18 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLMonAnDAO
     {
-        List<MonAn> MonAnPhucVu;
+        List<MonAn> MonAn;
         QLMonAnDAO() { }
         public static QLMonAnDAO Instance = new QLMonAnDAO();
         public List<MonAn> MenuMonAn
         {
             get
             {
-                if (MonAnPhucVu == null)
+                if (MonAn == null)
                 {
-                    MonAnPhucVu = CSDL.instance.LayMenuMonAn();
+                    MonAn = CSDL.instance.LayMenuMonAn();
                 }
-                return MonAnPhucVu;
+                return MonAn;
             }
         }
         public List<MonAn> TimMonAn(MongoDB.Driver.FilterDefinition<MongoDB.Bson.BsonDocument> filter)
@@ -27,7 +27,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         public void ThemMonAn(string tenmonan, int gia)
         {
 
-            CSDL.instance.Insert("MonAnPhucVu",
+            CSDL.instance.Insert("MonAn",
                 new MongoDB.Bson.BsonDocument
                 {
                     {"Name",tenmonan },
@@ -37,11 +37,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         }
         public void CapNhatMonAn(string tenmonan, string thuoctinh, string value)
         {
-            CSDL.instance.Update("MonAnPhucVu", tenmonan, thuoctinh, value);
+            CSDL.instance.Update("MonAn", tenmonan, thuoctinh, value);
         }
         public void XoaMonAn(string tenmon)
         {
-            CSDL.instance.Remove("MonAnPhucVu", tenmon);
+            CSDL.instance.Remove("MonAn", tenmon);
         }
 
     }

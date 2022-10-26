@@ -59,5 +59,15 @@ namespace Do_an_nganh_QuanLiOrderMonAn.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_avatar_nhanvien {
+            get {
+                object obj = ResourceManager.GetObject("icon_avatar_nhanvien", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

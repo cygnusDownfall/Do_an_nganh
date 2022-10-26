@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
+using Do_an_nganh_QuanLiOrderMonAn.UI;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
@@ -11,28 +13,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
 
         }
-        public void TaoTaiKhoan(string name,string pass,bool isAdmin) 
-        //do nguoi dung dang ki tao tai khoan
-        {
-            if (isAdmin)
-            {
-
-            }
-            CSDL.instance.Insert("Account", new MongoDB.Bson.BsonDocument()
-            {
-                {"Name",name},
-                {"Password",pass},
-                {"isAdmin",isAdmin }
-            });
-            LogIn(name, pass);
-        }
+      
         public void ThemTaiKhoan(string name, string pass) //admin tao them tai khoan cho nhan vien
         {
+            
             CSDL.instance.Insert("Account", new MongoDB.Bson.BsonDocument()
             {
                 {"Name",name},
                 { "Password", pass },
-                {"isAdmin",false }
+                {"isAdmin",false },
+                {"online",false }
             });
         }
         
@@ -42,24 +32,31 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         }
 
         //..........................................
-        public void LogIn(string username,string pass)
+        public bool LogIn(string username,string pass)
         {
             // neu log in thanh cong goi form main else bao loi 
-            if(Account.instance.LoadAccount(username, pass))
+            if(Account.LoadAccount(username, pass))
             {
-
+                MAIN a = new MAIN();
+                //cap nhat trang thai online
+                CSDL.instance.Update("Acccount", Account.instance.Username, "online", true);
+                a.ShowDialog();
+                Application.OpenForms[0].Close();
+                return true;
             }
             else
             {
-
+                return false;
             }
         }
         public void LogOut()
         {
+            //cap nhat trang thai online
+            CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
             //goi form dang nhap 
-
             UI.FormDangNhap_DangKy f=new UI.FormDangNhap_DangKy();
             f.ShowDialog();
+            
         }
     }
 }

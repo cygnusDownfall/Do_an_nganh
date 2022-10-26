@@ -22,15 +22,15 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         IMongoDatabase database;
 
       
-        public void connect(string Database = "QL_order", string usename = "", string password = "phammai0903")
+        public void connect(string Database = "QLOrderMonAn")
         {
             if (client == null)
             {
-                var settings = MongoClientSettings.FromConnectionString(String.Format("mongodb+srv://{0}:{1}@cluster0.6vmfiqj.mongodb.net/?retryWrites=true&w=majority", usename, password));
+
+                var settings = MongoClientSettings.FromConnectionString("mongodb+srv://downfall:downfall@cluster0.rrzospc.mongodb.net/?retryWrites=true&w=majority");
                 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
                 client = new MongoClient(settings);
-                database = client.GetDatabase(Database);
-
+                var database = client.GetDatabase(Database);
             }
 
             database = client.GetDatabase(Database);
@@ -73,13 +73,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             var data = GetCollection(TenBang);
             data.InsertMany(elements);
         }
-        public void Update(string TenBang, string key, string propertie, string value)
+        public void Update<T>(string TenBang, string name, string propertie, T value)
         {
             var data = GetCollection(TenBang);
-            if (key != null)
+            if (name != null)
             {
                 var update = Builders<BsonDocument>.Update.Set(propertie, value);
-                var filter = Builders<BsonDocument>.Filter.Eq("Name", key);
+                var filter = Builders<BsonDocument>.Filter.Eq("Name",name );
                 data.UpdateOne(filter, update);
             }
 
@@ -120,7 +120,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             connect();
             List<MonAn> monAns = new List<MonAn>();
 
-            var kq = GetAllInCollection("MonAnPhucVu");
+            var kq = GetAllInCollection("MonAn");
 
             for (int i = 0; i < 1; i++)
             {
@@ -133,7 +133,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             connect();
             List<MonAn> monAns = new List<MonAn>();
 
-            var kq = Query("MonAnPhucVu", filter);
+            var kq = Query("MonAn", filter);
 
             for (int i = 0; i < 1; i++)
             {
@@ -162,7 +162,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             connect();
             List<Order> Orders = new List<Order>();
 
-            var kq = Query("MonAnPhucVu", filter);
+            var kq = Query("MonAn", filter);
 
             for (int i = 0; i < 1; i++)
             {
@@ -178,19 +178,20 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         {
             var filter = Builders<BsonDocument>.Filter.Eq("Name", name);
             var ds = Query("Account",filter);
-            if(ds.Count ==0 || ds==null) { return false; }
+            if(ds.Count ==0 || ds == null || ds[0].GetValue(4).AsBoolean) { return false; }
             try
             {
                 BsonDocument bson = ds[0];
                 if (bson.GetValue(2).AsString != pass) { return false; }    
-                Account.instance.init(bson.GetValue(0).AsString, bson.GetValue(1).AsString,
-                    bson.GetValue(2).AsBoolean);
+                Account.instance.init(bson.GetValue(1).AsString, bson.GetValue(2).AsString,
+                    bson.GetValue(3).AsBoolean);
+
             }
             catch (Exception)
             {
                 return false;
             }
-
+            
             return true;
             
         }

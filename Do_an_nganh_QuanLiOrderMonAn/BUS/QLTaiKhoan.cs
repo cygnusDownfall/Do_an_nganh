@@ -8,9 +8,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
     {
         QLTaiKhoan() { }
         public static QLTaiKhoan instance = new QLTaiKhoan();
-        public void LogIn()
+        public bool LogIn(string name,string pass)
         {
-
+            return QLTaiKhoanDAO.QLTaiKhoan.LogIn(name, pass);
+            
         }
         public void LogOut()
         {
