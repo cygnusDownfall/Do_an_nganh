@@ -174,11 +174,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             return Orders;
         }
 
-        public bool SearchAccount(string name,string pass)
+        public bool SearchAccount(string name,string pass, bool isadmin)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("Name", name);
             var ds = Query("Account",filter);
-            if(ds.Count ==0 || ds == null || ds[0].GetValue(4).AsBoolean) { return false; }
+            if(ds.Count ==0 || ds == null || ds[0].GetValue(4).AsBoolean|| (ds[0].GetValue(3).AsBoolean!=isadmin)) 
+            { return false; }
             try
             {
                 BsonDocument bson = ds[0];

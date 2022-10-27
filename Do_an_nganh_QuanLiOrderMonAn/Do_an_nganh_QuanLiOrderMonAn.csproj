@@ -151,11 +151,17 @@
     <Compile Include="UI\FormDangNhap_DangKy.Designer.cs">
       <DependentUpon>FormDangNhap_DangKy.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MAIN.cs">
+    <Compile Include="UI\ADMINFORM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MAIN.Designer.cs">
-      <DependentUpon>MAIN.cs</DependentUpon>
+    <Compile Include="UI\ADMINFORM.Designer.cs">
+      <DependentUpon>ADMINFORM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NHANVIENFORM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\NHANVIENFORM.Designer.cs">
+      <DependentUpon>NHANVIENFORM.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -170,8 +176,8 @@
     <EmbeddedResource Include="UI\FormDangNhap_DangKy.resx">
       <DependentUpon>FormDangNhap_DangKy.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MAIN.resx">
-      <DependentUpon>MAIN.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ADMINFORM.resx">
+      <DependentUpon>ADMINFORM.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />
@@ -197,6 +203,8 @@
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
     <Content Include="mongocrypt.dll" />
+    <None Include="resource\picture\filtericon.png" />
+    <None Include="resource\picture\delfilter.png" />
     <Content Include="resource\picture\icon_avatar_quanli.png" />
     <None Include="resource\picture\icon_avatar_nhanvien.png" />
   </ItemGroup>

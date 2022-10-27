@@ -63,6 +63,26 @@ namespace Do_an_nganh_QuanLiOrderMonAn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap delfilter {
+            get {
+                object obj = ResourceManager.GetObject("delfilter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap filtericon {
+            get {
+                object obj = ResourceManager.GetObject("filtericon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_avatar_nhanvien {
             get {
                 object obj = ResourceManager.GetObject("icon_avatar_nhanvien", resourceCulture);

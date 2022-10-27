@@ -32,16 +32,23 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         }
 
         //..........................................
-        public bool LogIn(string username,string pass)
+        public bool LogIn(string username,string pass,bool isadmin)
         {
             // neu log in thanh cong goi form main else bao loi 
-            if(Account.LoadAccount(username, pass))
+            if(Account.LoadAccount(username, pass,isadmin))
             {
-                MAIN a = new MAIN();
                 //cap nhat trang thai online
                 CSDL.instance.Update("Acccount", Account.instance.Username, "online", true);
-                a.ShowDialog();
-                Application.OpenForms[0].Close();
+                if (Account.instance.IsAdmin)
+                {
+                    ADMINFORM a = new ADMINFORM();
+                    a.ShowDialog();
+                }
+                else
+                {
+                    NHANVIENFORM nvf = new NHANVIENFORM();
+                    nvf.ShowDialog();
+                }
                 return true;
             }
             else

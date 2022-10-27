@@ -1,4 +1,5 @@
 ﻿using Do_an_nganh_QuanLiOrderMonAn.BUS;
+using Do_an_nganh_QuanLiOrderMonAn.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +18,19 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
     {
         public FormDangNhap_DangKy()
         {
+            Account acc = savesystem.load();
+            if (acc!= null)
+            {
+                if(MessageBox.Show("Bạn muốn tiếp tục đăng nhập bằng tài khoản trước đó không?",
+                   "Đăng nhập",MessageBoxButtons.YesNo)
+                    == DialogResult.Yes)
+                {
+                    
+                    QLTaiKhoan.instance.LogIn(acc.Username, acc.Password, acc.IsAdmin);
+                }
+                
+            }
             InitializeComponent();
-            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,29 +62,30 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         {
             if (checkinputtk())
             {
-                
-                if (!QLTaiKhoan.instance.LogIn(Tentaikhoantb.Text, MKtb.Text))
+
+                if (!QLTaiKhoan.instance.LogIn(Tentaikhoantb.Text, MKtb.Text,(isAdmincb.SelectedIndex==0)))
                 {
+                    
                     Tentaikhoantb.BackColor = Color.IndianRed;
                     MKtb.BackColor = Color.IndianRed;
                     Tentaikhoantb.Focus();
                 }
-                
+
             }
-                
+
 
         }
         #region hamrieng
         bool checkinputtk()
         {
-            if (Tentaikhoantb.Text == "" || MKtb.Text == ""||isAdmincb.Text=="")
+            if (Tentaikhoantb.Text == "" || MKtb.Text == "" || isAdmincb.Text == "")
             {
                 MessageBox.Show("Ban chua nhap du thong tin!");
                 return false;
             }
-            foreach(var x in Tentaikhoantb.Text)
+            foreach (var x in Tentaikhoantb.Text)
             {
-                if (x == '(' || x == ')' || x == '[' || x == ']'||x=='}'||x=='{')
+                if (x == '(' || x == ')' || x == '[' || x == ']' || x == '}' || x == '{')
                 {
                     MessageBox.Show("Ten tai khoan khong dung!");
                     return false;

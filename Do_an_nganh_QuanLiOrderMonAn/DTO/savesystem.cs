@@ -27,7 +27,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show(@"lam j co file nay  !!!!!!!");
+                //System.Windows.Forms.MessageBox.Show(@"lam j co file nay  !!!!!!!");
                 return null;
             }
 
