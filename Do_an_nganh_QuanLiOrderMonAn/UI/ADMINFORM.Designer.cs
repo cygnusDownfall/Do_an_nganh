@@ -197,14 +197,14 @@
             // footer
             // 
             this.footer.Controls.Add(this.NotifiLB);
-            this.footer.Location = new System.Drawing.Point(13, 596);
+            this.footer.Location = new System.Drawing.Point(12, 636);
             this.footer.Name = "footer";
             this.footer.Size = new System.Drawing.Size(1106, 57);
             this.footer.TabIndex = 2;
             // 
             // NotifiLB
             // 
-            this.NotifiLB.Location = new System.Drawing.Point(4, 10);
+            this.NotifiLB.Location = new System.Drawing.Point(9, 9);
             this.NotifiLB.Name = "NotifiLB";
             this.NotifiLB.Size = new System.Drawing.Size(1099, 44);
             this.NotifiLB.TabIndex = 0;
@@ -220,7 +220,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 42);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1128, 560);
+            this.tabControl1.Size = new System.Drawing.Size(1128, 588);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -229,7 +229,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1120, 522);
+            this.tabPage1.Size = new System.Drawing.Size(1120, 550);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "QUẢN LÍ ORDER";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -267,7 +267,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1141, 658);
+            this.ClientSize = new System.Drawing.Size(1141, 703);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.footer);
             this.Controls.Add(this.header);

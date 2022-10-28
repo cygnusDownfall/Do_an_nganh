@@ -20,6 +20,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         {
 
             CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
+            
         }
 
         private void adminpanel_Click(object sender, EventArgs e)
