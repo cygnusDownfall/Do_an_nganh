@@ -39,7 +39,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         }
         private void ADMINFORM_Load(object sender, EventArgs e)
         {
-
+            
         }
         private void loaidkcb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -69,14 +69,21 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         }
         void loadconditionlistview(int index)
         {
+            List<string> kq=new List<string>();
             switch (index)
             {
                 case 0:
                     {
+                        List<MonAn> ma = QLMonAn.instance.MenuMonAn;
+                        for (int i = 0,n=ma.Count;i<n ; i++)
+                        {
+                            kq.Add(ma[i].TenMonAn);
+                        }
                         break;
                     }
                 case 1:
                     {
+                        
                         break;
                     }
                 case 2:

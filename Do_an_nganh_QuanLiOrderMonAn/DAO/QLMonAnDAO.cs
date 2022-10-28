@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLMonAnDAO
     {
-        List<MonAn> MonAn;
         QLMonAnDAO() { }
         public static QLMonAnDAO Instance = new QLMonAnDAO();
         public List<MonAn> MenuMonAn
         {
             get
             {
-                if (MonAn == null)
-                {
-                    MonAn = CSDL.instance.LayMenuMonAn();
-                }
-                return MonAn;
+                    return CSDL.instance.LayMenuMonAn();
             }
         }
-        public List<MonAn> TimMonAn(MongoDB.Driver.FilterDefinition<MongoDB.Bson.BsonDocument> filter)
+        public List<MonAn> TimMonAn(string properties,string value)
         {
-            return CSDL.instance.LayMenuMonAn(filter);
+                var filter = Builders<BsonDocument>.Filter.Eq(properties, value);
+                return CSDL.instance.LayMenuMonAn(filter);
         }
         public void ThemMonAn(string tenmonan, int gia)
         {

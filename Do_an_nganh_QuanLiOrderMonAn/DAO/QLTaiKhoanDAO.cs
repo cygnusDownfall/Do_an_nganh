@@ -14,6 +14,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 
         }
       
+        public void danhsachtaikhoan()
+        {
+
+        }
         public void ThemTaiKhoan(string name, string pass) //admin tao them tai khoan cho nhan vien
         {
             
