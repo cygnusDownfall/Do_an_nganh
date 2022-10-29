@@ -8,19 +8,27 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLTaiKhoanDAO
     {
-        public static QLTaiKhoanDAO QLTaiKhoan=new QLTaiKhoanDAO();
+        public static QLTaiKhoanDAO QLTaiKhoan = new QLTaiKhoanDAO();
         QLTaiKhoanDAO()
         {
 
         }
-      
-        public void danhsachtaikhoan()
-        {
 
+        public List<string> tentaikhoans  // hien thi danh sach tai khoan
+        {
+            get
+            {
+                List<string> list = new List<string>();
+                var x=CSDL.instance.GetAllInCollection("Account");
+                foreach(var y in x)
+                {
+                    list.Add(y.GetValue(1).AsString);
+                }
+                return list;
+            }
         }
         public void ThemTaiKhoan(string name, string pass) //admin tao them tai khoan cho nhan vien
         {
-            
             CSDL.instance.Insert("Account", new MongoDB.Bson.BsonDocument()
             {
                 {"Name",name},
@@ -29,17 +37,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                 {"online",false }
             });
         }
-        
+
         public void XoaTaiKhoanHienTai()
         {
             Account.instance.DeleteAccount();
         }
 
         //..........................................
-        public bool LogIn(string username,string pass,bool isadmin)
+        public bool LogIn(string username, string pass, bool isadmin)
         {
             // neu log in thanh cong goi form main else bao loi 
-            if(Account.LoadAccount(username, pass,isadmin))
+            if (Account.LoadAccount(username, pass, isadmin))
             {
                 //cap nhat trang thai online
                 CSDL.instance.Update("Acccount", Account.instance.Username, "online", true);
@@ -64,10 +72,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             //cap nhat trang thai online
             CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
-            //goi form dang nhap 
-            UI.FormDangNhap_DangKy f=new UI.FormDangNhap_DangKy();
-            f.ShowDialog();
-            
+
         }
     }
 }

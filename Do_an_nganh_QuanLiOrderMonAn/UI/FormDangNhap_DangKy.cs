@@ -62,15 +62,15 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         {
             if (checkinputtk())
             {
-
+                this.Hide();
                 if (!QLTaiKhoan.instance.LogIn(Tentaikhoantb.Text, MKtb.Text,(isAdmincb.Text=="Quản lí")))
                 {
-                    
                     Tentaikhoantb.BackColor = Color.IndianRed;
                     MKtb.BackColor = Color.IndianRed;
                     Tentaikhoantb.Focus();
                 }
-
+                
+                
             }
 
 

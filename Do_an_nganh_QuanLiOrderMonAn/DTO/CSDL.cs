@@ -114,15 +114,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
         #endregion
 
-
+        #region Ham chuc nang co su dung thu vien MongoDB de o day cac class QL k can goi lai thu vien nay
         public List<MonAn> LayMenuMonAn()
         {
             connect();
             List<MonAn> monAns = new List<MonAn>();
 
             var kq = GetAllInCollection("MonAn");
+            if(kq == null || kq.Count == 0) { return null; }
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0,n=kq.Count; i < n; i++)
             {
                 monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32()));
             }
@@ -191,10 +192,19 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             catch (Exception)
             {
                 return false;
-            }
-            
+            } 
             return true;
-            
         }
+        public List<string> danhsachban()
+        {
+            List<string> strings = new List<string>();
+            List<BsonDocument> bsonElements = GetAllInCollection("Ban");
+            for (int i = 0,n=bsonElements.Count; i < n; i++)
+            {
+                strings.Add(bsonElements[i].GetValue(1).AsInt32.ToString());
+            }
+            return strings;
+        }
+        #endregion
     }
 }

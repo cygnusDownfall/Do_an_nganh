@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Diagnostics;
 using MongoDB.Driver;
+using System.Web;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.UI
 {
@@ -19,13 +20,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-            CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
-            
+            QLTaiKhoan.instance.LogOut();
+            Application.Exit();
         }
 
         private void adminpanel_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -35,11 +36,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             loaidkcb.Text = "";
             ngaydp.Value = DateTime.Now;
             //load lai list view 
-
+            basicloadlistview();
         }
         private void ADMINFORM_Load(object sender, EventArgs e)
         {
-            
+
         }
         private void loaidkcb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -47,7 +48,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         }
         private void condition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            loadlistview(loaidkcb.Text,condition.SelectedItems.ToString());
+            loadlistview(loaidkcb.Text, condition.SelectedItems.ToString());
         }
         #endregion
         #region function
@@ -58,24 +59,26 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
 
             if (orderS == null) return;
 
-            for (int i = 0,n=orderS.Count; i<n; i++)
+            for (int i = 0, n = orderS.Count; i < n; i++)
             {
                 order.Items.Add(orderS[i].GetValue(1).AsString);
                 order.Items[i].SubItems.Add(orderS[i].GetValue(2).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(3).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(4).AsString);
+                order.Items[i].SubItems.Add(orderS[i].GetValue(3).AsDateTime.ToString());
+                order.Items[i].SubItems.Add(orderS[i].GetValue(4).AsInt32.ToString());
             }
 
         }
         void loadconditionlistview(int index)
         {
-            List<string> kq=new List<string>();
+            condition.Items.Clear();
+            List<string> kq = new List<string>();
             switch (index)
             {
                 case 0:
                     {
                         List<MonAn> ma = QLMonAn.instance.MenuMonAn;
-                        for (int i = 0,n=ma.Count;i<n ; i++)
+                        if (ma == null) return;
+                        for (int i = 0, n = ma.Count; i < n; i++)
                         {
                             kq.Add(ma[i].TenMonAn);
                         }
@@ -83,23 +86,30 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                     }
                 case 1:
                     {
-                        
+                        kq = DAO.QLNhanVienDAO.danhsachnhanvien;
                         break;
                     }
                 case 2:
                     {
+                        kq = QLOder.danhsachngay;
                         break;
                     }
                 case 3:
                     {
+                        kq = CSDL.instance.danhsachban();
                         break;
                     }
             }
+            for (int i = 0; i < kq.Count; i++)
+            {
+                condition.Items.Add(kq[i]);
+            }
+
         }
-        void loadlistview(string field,string value )
+        void loadlistview(string field, string value)
         {
             order.Items.Clear();
-            List<BsonDocument> orderS = CSDL.instance.Query("Order",Builders<BsonDocument>.Filter.Eq(field,value));
+            List<BsonDocument> orderS = CSDL.instance.Query("Order", Builders<BsonDocument>.Filter.Eq(field, value));
 
             if (orderS == null) return;
 
@@ -108,13 +118,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                 order.Items.Add(orderS[i].GetValue(1).AsString);
                 order.Items[i].SubItems.Add(orderS[i].GetValue(2).AsString);
                 order.Items[i].SubItems.Add(orderS[i].GetValue(3).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(4).AsString);
+                order.Items[i].SubItems.Add(orderS[i].GetValue(4).AsInt32.ToString());
             }
         }
 
         #endregion
 
-        
+
     }
-    
+
 }

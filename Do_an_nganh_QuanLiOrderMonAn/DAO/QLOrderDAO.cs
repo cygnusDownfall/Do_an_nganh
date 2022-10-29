@@ -6,16 +6,41 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLOrderDAO
     {
-        List<Order> dsOrder;
+        QLOrderDAO() { }
+        public static QLOrderDAO instance = new QLOrderDAO();
+        
         public List<Order> DanhSachOrder
         {
             get
             {
-                if (dsOrder == null)
+                return CSDL.instance.LayDanhSachOrder();
+            }
+        }
+        public List<string> danhsachtheongay
+        {
+            get
+            {
+                List<string> list = new List<string>();
+                var x = CSDL.instance.GetAllInCollection("Order");
+                foreach (var y in x)
                 {
-                    dsOrder = CSDL.instance.LayDanhSachOrder();
+                    list.Add(y.GetValue(3).AsDateTime.ToString());
                 }
-                return dsOrder;
+                return list;
+
+            }
+        }
+        public List<string> danhsachtheoban
+        {
+            get
+            {
+                List<string> list = new List<string>();
+                var x = CSDL.instance.GetAllInCollection("NhanVien");
+                foreach (var y in x)
+                {
+                    list.Add(y.GetValue(1).AsString);
+                }
+                return list;
             }
         }
         public List<Order> TimOrder(MongoDB.Driver.FilterDefinition<MongoDB.Bson.BsonDocument> filter)
