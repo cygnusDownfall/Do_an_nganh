@@ -11,8 +11,15 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         public static QLTaiKhoan instance = new QLTaiKhoan();
         public bool LogIn(string name,string pass,bool isadmin)
         {
+            try
+            {
+                return QLTaiKhoanDAO.QLTaiKhoan.LogIn(name, pass, isadmin);
+            }catch(Exception e)
+            {
+                
+                return false;
+            }
             
-            return QLTaiKhoanDAO.QLTaiKhoan.LogIn(name, pass,isadmin);
             
         }
         public void LogOut()

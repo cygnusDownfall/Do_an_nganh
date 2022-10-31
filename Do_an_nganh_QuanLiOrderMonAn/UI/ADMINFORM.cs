@@ -19,8 +19,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         #region event
         private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             QLTaiKhoan.instance.LogOut();
+            savesystem.save(DTO.Account.instance);
             Application.Exit();
         }
 
@@ -29,18 +29,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
 
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            //xoa dieu kien tim kiem 
-            searchtb.Text = "";
-            loaidkcb.Text = "";
-            ngaydp.Value = DateTime.Now;
-            //load lai list view 
-            basicloadlistview();
-        }
         private void ADMINFORM_Load(object sender, EventArgs e)
         {
-
+            basicloadlistview();
         }
         private void loaidkcb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -49,6 +40,28 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         private void condition_SelectedIndexChanged(object sender, EventArgs e)
         {
             loadlistview(loaidkcb.Text, condition.SelectedItems.ToString());
+        }
+        private void button4_Click(object sender, EventArgs e) //search button 
+        {
+            
+            var bang = order.Items;
+            order.Items.Clear();
+            for (int i = 0,n=bang.Count; i < n; i++)
+            {
+                if (bang[i].SubItems[2].Text.Substring(0, 8) == ngaydp.Text)
+                {
+                    order.Items.Add(bang[i]);
+                }
+            }
+        }
+        private void button5_Click(object sender, EventArgs e) //huy loc button 
+        {
+            //xoa dieu kien tim kiem 
+            searchtb.Text = "";
+            loaidkcb.Text = "";
+            ngaydp.Value = DateTime.Now;
+            //load lai list view 
+            basicloadlistview();
         }
         #endregion
         #region function
@@ -122,9 +135,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             }
         }
 
+
+
         #endregion
 
-
+       
     }
 
 }

@@ -65,15 +65,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                 this.Hide();
                 if (!QLTaiKhoan.instance.LogIn(Tentaikhoantb.Text, MKtb.Text,(isAdmincb.Text=="Quản lí")))
                 {
+                    this.Show();
                     Tentaikhoantb.BackColor = Color.IndianRed;
                     MKtb.BackColor = Color.IndianRed;
                     Tentaikhoantb.Focus();
+                    Class.NotifyAdapterSystem.BaoLoi(loilb, "Đăng nhập không thành công");
                 }
-                
-                
             }
-
-
         }
         #region hamrieng
         bool checkinputtk()
@@ -85,7 +83,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             }
             foreach (var x in Tentaikhoantb.Text)
             {
-                if (x == '(' || x == ')' || x == '[' || x == ']' || x == '}' || x == '{')
+                if (x == '(' || x == ')' || x == '[' || x == ']' || x == '}' || x == '{'||x==',')
                 {
                     MessageBox.Show("Ten tai khoan khong dung!");
                     return false;

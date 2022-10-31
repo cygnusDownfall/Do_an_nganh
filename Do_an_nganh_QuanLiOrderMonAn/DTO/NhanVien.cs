@@ -8,6 +8,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     class NhanVien
     {
-       
+        string _tennhanvien, _tknhanvien;
+        public string Tennhanvien { get
+            {
+                return _tennhanvien;
+            } set
+            {
+                _tennhanvien = value;
+            }
+        }
     }
 }

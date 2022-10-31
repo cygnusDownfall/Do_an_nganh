@@ -37,6 +37,7 @@
             this.isAdmincb = new System.Windows.Forms.ComboBox();
             this.LogInbt = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.loilb = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ava)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,6 +118,16 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Bạn là:";
             // 
+            // loilb
+            // 
+            this.loilb.Location = new System.Drawing.Point(1, 241);
+            this.loilb.Name = "loilb";
+            this.loilb.Size = new System.Drawing.Size(568, 31);
+            this.loilb.TabIndex = 6;
+            this.loilb.Text = "label4";
+            this.loilb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.loilb.Visible = false;
+            // 
             // FormDangNhap_DangKy
             // 
             this.AcceptButton = this.LogInbt;
@@ -124,6 +135,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(571, 271);
+            this.Controls.Add(this.loilb);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LogInbt);
             this.Controls.Add(this.isAdmincb);
@@ -153,5 +165,6 @@
         private System.Windows.Forms.ComboBox isAdmincb;
         private System.Windows.Forms.Button LogInbt;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label loilb;
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
+    [Serializable]
     public class Account
     {
         public static Account instance=new Account();
@@ -44,7 +45,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         {
             CSDL.instance.Remove("Account",username);
             instance = null;
-            Do_an_nganh_QuanLiOrderMonAn.BUS.QLTaiKhoan.instance.LogOut();
+            BUS.QLTaiKhoan.instance.LogOut();
         }
     }
 
