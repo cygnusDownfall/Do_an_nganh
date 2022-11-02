@@ -39,10 +39,17 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.header = new System.Windows.Forms.Panel();
+            this.settingpic = new System.Windows.Forms.PictureBox();
+            this.Accountpic = new System.Windows.Forms.PictureBox();
             this.footer = new System.Windows.Forms.Panel();
             this.NotifiLB = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -55,22 +62,15 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.settingpic = new System.Windows.Forms.PictureBox();
-            this.Accountpic = new System.Windows.Forms.PictureBox();
             this.header.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.settingpic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Accountpic)).BeginInit();
             this.footer.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.settingpic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Accountpic)).BeginInit();
             this.SuspendLayout();
             // 
             // condition
@@ -106,6 +106,7 @@
             this.loaidkcb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loaidkcb.FormattingEnabled = true;
             this.loaidkcb.Items.AddRange(new object[] {
+            "Tất cả",
             "Món ăn",
             "Người phục vụ bàn",
             "Thời gian",
@@ -172,6 +173,28 @@
             this.header.Size = new System.Drawing.Size(1150, 45);
             this.header.TabIndex = 1;
             // 
+            // settingpic
+            // 
+            this.settingpic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.settingpic.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.settingicon;
+            this.settingpic.Location = new System.Drawing.Point(1053, 3);
+            this.settingpic.Name = "settingpic";
+            this.settingpic.Size = new System.Drawing.Size(41, 35);
+            this.settingpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.settingpic.TabIndex = 0;
+            this.settingpic.TabStop = false;
+            // 
+            // Accountpic
+            // 
+            this.Accountpic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Accountpic.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.accounticon;
+            this.Accountpic.Location = new System.Drawing.Point(1100, 3);
+            this.Accountpic.Name = "Accountpic";
+            this.Accountpic.Size = new System.Drawing.Size(41, 35);
+            this.Accountpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Accountpic.TabIndex = 0;
+            this.Accountpic.TabStop = false;
+            // 
             // footer
             // 
             this.footer.Controls.Add(this.NotifiLB);
@@ -223,6 +246,57 @@
             this.tabPage1.Text = "ORDER";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.BackgroundImage = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.delfilter;
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.delfilter;
+            this.button5.Location = new System.Drawing.Point(976, 11);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(53, 43);
+            this.button5.TabIndex = 9;
+            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackgroundImage = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.filtericon;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.filtericon;
+            this.button4.Location = new System.Drawing.Point(917, 10);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(53, 43);
+            this.button4.TabIndex = 9;
+            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(308, 17);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 25);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Lọc kết quả:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(112, 25);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Tìm kiếm :  ";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(842, 17);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(58, 30);
+            this.numericUpDown1.TabIndex = 7;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button3);
@@ -241,9 +315,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(273, 229);
+            this.button3.Location = new System.Drawing.Point(273, 150);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(44, 88);
+            this.button3.Size = new System.Drawing.Size(109, 43);
             this.button3.TabIndex = 5;
             this.button3.Text = "button1";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -251,9 +325,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(273, 135);
+            this.button2.Location = new System.Drawing.Point(273, 92);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(44, 88);
+            this.button2.Size = new System.Drawing.Size(109, 52);
             this.button2.TabIndex = 5;
             this.button2.Text = "button1";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -263,10 +337,11 @@
             // 
             this.button1.Location = new System.Drawing.Point(273, 41);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(44, 88);
+            this.button1.Size = new System.Drawing.Size(109, 45);
             this.button1.TabIndex = 5;
             this.button1.Text = "button1";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseMnemonic = false;
             this.button1.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -275,9 +350,9 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(323, 41);
+            this.panel1.Location = new System.Drawing.Point(388, 41);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(789, 420);
+            this.panel1.Size = new System.Drawing.Size(724, 420);
             this.panel1.TabIndex = 2;
             // 
             // label4
@@ -343,79 +418,6 @@
             this.tabPage4.Text = "NHÂN VIÊN";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(842, 17);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(58, 30);
-            this.numericUpDown1.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(112, 25);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Tìm kiếm :  ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(308, 17);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(119, 25);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Lọc kết quả:";
-            // 
-            // button5
-            // 
-            this.button5.BackgroundImage = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.delfilter;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button5.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.delfilter;
-            this.button5.Location = new System.Drawing.Point(976, 11);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(53, 43);
-            this.button5.TabIndex = 9;
-            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button4
-            // 
-            this.button4.BackgroundImage = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.filtericon;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button4.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.filtericon;
-            this.button4.Location = new System.Drawing.Point(917, 10);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(53, 43);
-            this.button4.TabIndex = 9;
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // settingpic
-            // 
-            this.settingpic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.settingpic.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.settingicon;
-            this.settingpic.Location = new System.Drawing.Point(1053, 3);
-            this.settingpic.Name = "settingpic";
-            this.settingpic.Size = new System.Drawing.Size(41, 35);
-            this.settingpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.settingpic.TabIndex = 0;
-            this.settingpic.TabStop = false;
-            // 
-            // Accountpic
-            // 
-            this.Accountpic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Accountpic.Image = global::Do_an_nganh_QuanLiOrderMonAn.Properties.Resources.accounticon;
-            this.Accountpic.Location = new System.Drawing.Point(1100, 3);
-            this.Accountpic.Name = "Accountpic";
-            this.Accountpic.Size = new System.Drawing.Size(41, 35);
-            this.Accountpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.Accountpic.TabIndex = 0;
-            this.Accountpic.TabStop = false;
-            // 
             // ADMINFORM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -432,17 +434,17 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MAIN_FormClosed);
             this.Load += new System.EventHandler(this.ADMINFORM_Load);
             this.header.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.settingpic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Accountpic)).EndInit();
             this.footer.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.settingpic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Accountpic)).EndInit();
             this.ResumeLayout(false);
 
         }

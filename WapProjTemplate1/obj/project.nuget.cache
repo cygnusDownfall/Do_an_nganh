@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "BCdE8j6YiGK9AmrO1BkJnacsZm8U2NV7EinrntE7qkALe/ZuamEwqYlfMlZvS1RJoUzlbYqkIUvk0RViPRa2Ow==",
+  "dgSpecHash": "/blWktNIOxFx9sh6TfC5SBNu+OFzXajrLR9eWDvX8RbWn2zXG57rjxZpAfE4JNVQQyUtIhjAPSQR8uZM2uKGzA==",
   "success": true,
   "projectFilePath": "E:\\bt\\Do_an_nganh\\WapProjTemplate1\\WapProjTemplate1.wapproj",
   "expectedPackageFiles": [
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.22621.1\\microsoft.windows.sdk.buildtools.10.0.22621.1.nupkg.sha512"
+    "C:\\Users\\tranl\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.25231-preview\\microsoft.windows.sdk.buildtools.10.0.25231-preview.nupkg.sha512"
   ],
   "logs": []
 }

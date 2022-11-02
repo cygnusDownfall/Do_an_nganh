@@ -44,15 +44,47 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         private void button4_Click(object sender, EventArgs e) //search button 
         {
             
+           
+            List<ListViewItem> res = new List<ListViewItem>();
             var bang = order.Items;
-            order.Items.Clear();
-            for (int i = 0,n=bang.Count; i < n; i++)
+
+            //dung binary search de tim vi tri dau tien 
+            int mid;
+            int right = order.Items.Count;
+            for (int left = 0 ; left <= right;)
             {
-                if (bang[i].SubItems[2].Text.Substring(0, 8) == ngaydp.Text)
+                mid= left+(right-left)/2;
+                if(DateTime.Compare(DateTime.Parse(bang[mid].SubItems[2].Text.Substring(0, 8)),ngaydp.Value)>=0)
                 {
-                    order.Items.Add(bang[i]);
+                    right= mid-1;
+                }
+                else
+                {
+                    left= mid+1;
                 }
             }
+
+            //them cac phan tu thoa dieu kien vao res
+            
+            for (int i = right+1,n=bang.Count; i < n; i++)
+            {
+                if (bang[i].SubItems[2].Text.Substring(0, 8) != ngaydp.Text)
+                {
+                    break;
+                   
+                }
+                res.Add(bang[i]);
+            }
+
+
+            order.Items.Clear();
+
+            //add cac phan tu res vao order.items
+            for (int i = 0,n=res.Count;i<n ; i++)
+            {
+                order.Items.Add(res[i]);
+            }
+
         }
         private void button5_Click(object sender, EventArgs e) //huy loc button 
         {
@@ -65,6 +97,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         }
         #endregion
         #region function
+        
         void basicloadlistview()
         {
             order.Items.Clear();
@@ -89,6 +122,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             {
                 case 0:
                     {
+                        basicloadlistview();
+                        break;
+                    }
+                case 1:
+                    {
                         List<MonAn> ma = QLMonAn.instance.MenuMonAn;
                         if (ma == null) return;
                         for (int i = 0, n = ma.Count; i < n; i++)
@@ -97,17 +135,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                         }
                         break;
                     }
-                case 1:
+                case 2:
                     {
                         kq = DAO.QLNhanVienDAO.danhsachnhanvien;
                         break;
                     }
-                case 2:
+                case 3:
                     {
                         kq = QLOder.danhsachngay;
                         break;
                     }
-                case 3:
+                case 4:
                     {
                         kq = CSDL.instance.danhsachban();
                         break;

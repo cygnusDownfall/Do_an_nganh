@@ -4,4 +4,8 @@
     <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
     <RemoteDebugEnabled>False</RemoteDebugEnabled>
   </PropertyGroup>
+  <PropertyGroup>
+    <Source>E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\resource\picture\icon_avatar_nhanvien.png</Source>
+    <AppIconSource>E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\resource\picture\icon_avatar_nhanvien.png</AppIconSource>
+  </PropertyGroup>
 </Project>

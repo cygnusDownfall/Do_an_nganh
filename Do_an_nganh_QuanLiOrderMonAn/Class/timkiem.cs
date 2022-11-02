@@ -6,6 +6,10 @@ namespace _020101125
 {
     public class timkiem
     {
+        static int sosanh(DateTime a, DateTime b)
+        {
+            return -1;
+        }
         public static int linear<T>(List<T> a, T value, Comparison<T> comparison)
         {
             for (int i = 0; i < a.Count; i++)
