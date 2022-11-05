@@ -5,7 +5,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
      class QLNhanVienDAO
     {
-        public static List<string> danhsachnhanvien
+        QLNhanVienDAO()
+        {
+
+        }
+        public static QLNhanVienDAO instance = new QLNhanVienDAO();
+
+
+        public List<string> danhsachnhanvien
         {
             get
             {
@@ -18,6 +25,18 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                 return list;
             }
         }
-       
+        public void ThemNhanVien(DTO.NhanVien nv)
+        {
+
+        }
+        public void CapnhatNhanVien(DTO.NhanVien nv)
+        {
+
+        }
+        public void XoaNhanVien(DTO.NhanVien nv)
+        {
+
+        }
+
     }
 }

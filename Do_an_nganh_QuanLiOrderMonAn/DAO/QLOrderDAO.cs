@@ -27,7 +27,6 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                     list.Add(y.GetValue(3).AsDateTime.ToString());
                 }
                 return list;
-
             }
         }
         public List<string> danhsachtheoban

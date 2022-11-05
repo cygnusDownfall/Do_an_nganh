@@ -16,14 +16,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         {
             InitializeComponent();
         }
-        #region event
+        #region eventINform
         private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
         {
             QLTaiKhoan.instance.LogOut();
             savesystem.save(DTO.Account.instance);
             Application.Exit();
         }
-
         private void adminpanel_Click(object sender, EventArgs e)
         {
 
@@ -31,8 +30,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
 
         private void ADMINFORM_Load(object sender, EventArgs e)
         {
-            basicloadlistview();
+            basicloadlistview();//in orderTAB
         }
+        #endregion
+        #region eventINorderTAB
         private void loaidkcb_SelectedIndexChanged(object sender, EventArgs e)
         {
             loadconditionlistview(loaidkcb.SelectedIndex);
@@ -96,8 +97,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             basicloadlistview();
         }
         #endregion
+
         #region function
-        
         void basicloadlistview()
         {
             order.Items.Clear();
@@ -175,9 +176,35 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
 
 
 
+
         #endregion
 
-       
+        #region eventINAccountTAB
+        private void AddnewAccountBT_Click(object sender, EventArgs e)
+        {
+            newAccGB.Visible=true;
+        }
+
+        private void deleteBT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void blockingbt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checknewaccountbt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void createAccBT_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 
 }

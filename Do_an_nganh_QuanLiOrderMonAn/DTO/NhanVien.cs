@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
-    class NhanVien
+    public class NhanVien
     {
         string _tennhanvien, _tknhanvien;
         public string Tennhanvien { get
@@ -16,6 +16,18 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             {
                 _tennhanvien = value;
             }
+        }
+        public string TenTKnhanvien
+        {
+            get
+            {
+                return _tknhanvien;
+            }
+        }
+        public NhanVien(string tennhanvien, string tknhanvien)
+        {
+            _tennhanvien = tennhanvien;
+            _tknhanvien = tknhanvien;
         }
     }
 }

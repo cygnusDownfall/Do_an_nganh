@@ -132,6 +132,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\NhanVienBUS.cs" />
     <Compile Include="BUS\QLMonAn.cs" />
     <Compile Include="BUS\QLOder.cs" />
     <Compile Include="BUS\QLTaiKhoan.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="DAO\QLNhanVienDAO.cs" />
     <Compile Include="DAO\QLOrderDAO.cs" />
     <Compile Include="DAO\QLTaiKhoanDAO.cs" />
-    <Compile Include="DTO\CSDL.cs" />
+    <Compile Include="Class\CSDL.cs" />
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\MonAn.cs" />
     <Compile Include="DTO\NhanVien.cs" />

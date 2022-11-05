@@ -15,12 +15,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         int _gia;
         public int Gia { get { return _gia; } set { _gia = value; } }
 
-        public MonAn(string Id,string tenmon,int gia)
+        string mota;
+        public string Mota { get { return mota; } set { mota = value; } }
+        public MonAn(string Id,string tenmon, int gia, string mota)
         {
             ID = Id;
             _TenMonAn = tenmon;
             _gia = gia;
-            
+            this.mota = mota;
         }
     }
 }

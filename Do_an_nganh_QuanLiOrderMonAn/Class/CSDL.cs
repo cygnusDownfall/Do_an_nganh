@@ -26,16 +26,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         {
             if (client == null)
             {
-
                 var settings = MongoClientSettings.FromConnectionString("mongodb+srv://downfall:downfall@cluster0.rrzospc.mongodb.net/?retryWrites=true&w=majority");
                 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
                 client = new MongoClient(settings);
                 var database = client.GetDatabase(Database);
             }
-
             database = client.GetDatabase(Database);
-
         }
+       
         public IMongoCollection<BsonDocument> GetCollection(string TenBang)
         {
             return database.GetCollection<BsonDocument>(TenBang);
@@ -125,7 +123,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
             for (int i = 0,n=kq.Count; i < n; i++)
             {
-                monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32()));
+                monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32(), kq[i].GetValue(3).AsString));
             }
             return monAns;
         }
@@ -138,7 +136,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
             for (int i = 0; i < 1; i++)
             {
-                monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32()));
+                monAns.Add(new MonAn(kq[i].GetValue(0).ToString(), kq[i].GetValue(1).ToString(), kq[i].GetValue(2).ToInt32(), kq[i].GetValue(3).AsString));
             }
             return monAns;
         }

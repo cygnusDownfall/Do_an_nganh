@@ -10,9 +10,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             get
             {
-                
                 return QLOrderDAO.instance.danhsachtheongay;
-             
             }
         }
     }
