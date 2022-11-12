@@ -4,6 +4,21 @@
     "E:\\bt\\Do_an_nganh\\WapProjTemplate1\\WapProjTemplate1.wapproj": {}
   },
   "projects": {
+    "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj",
+        "projectName": "Do_an_nganh_QuanLiOrderMonAn",
+        "projectPath": "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj",
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
     "E:\\bt\\Do_an_nganh\\WapProjTemplate1\\WapProjTemplate1.wapproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +46,11 @@
         "frameworks": {
           "uap10.0.14393": {
             "targetAlias": "net451",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj": {
+                "projectPath": "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -63,7 +82,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

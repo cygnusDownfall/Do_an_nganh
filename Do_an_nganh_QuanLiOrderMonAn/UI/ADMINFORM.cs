@@ -31,6 +31,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         private void ADMINFORM_Load(object sender, EventArgs e)
         {
             basicloadlistview();//in orderTAB
+            
         }
         #endregion
         #region eventINorderTAB
@@ -132,13 +133,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                         if (ma == null) return;
                         for (int i = 0, n = ma.Count; i < n; i++)
                         {
-                            kq.Add(ma[i].TenMonAn);
+                            kq.Add(ma[i].Tenmonan);
                         }
                         break;
                     }
                 case 2:
                     {
-                        kq = DAO.QLNhanVienDAO.danhsachnhanvien;
+                        kq = DAO.QLNhanVienDAO.instance.danhsachnhanvien;
                         break;
                     }
                 case 3:

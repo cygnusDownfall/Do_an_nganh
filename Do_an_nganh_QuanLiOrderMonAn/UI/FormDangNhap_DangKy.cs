@@ -1,15 +1,9 @@
 ﻿using Do_an_nganh_QuanLiOrderMonAn.BUS;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.UI
@@ -51,11 +45,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             }
         }
 
-        private void FormDangNhap_DangKy_Load(object sender, EventArgs e)
+        private async void FormDangNhap_DangKy_Load(object sender, EventArgs e)
         {
             isAdmincb.Items.Add("Quản lí");
             isAdmincb.Items.Add("Nhân viên");
             isAdmincb.SelectedText = "Quản lí";
+            //  CSDL.instance.Post<Order>("Order",new Order("ga nuong", 5, DateTime.Now));
+          List<MonAn> ds= await CSDL.instance.Query<MonAn>("MonAn",@"""filter"":{""Tenmonan"":""ga nuong""}");
+           foreach(var x in ds)
+            {
+                MessageBox.Show(x.ToString());
+            }
         }
 
         private void LogInbt_Click(object sender, EventArgs e)

@@ -1,29 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
+using System.Text.Json.Serialization;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     [Serializable]
     public class Account
     {
+        
         public static Account instance=new Account();
-        string username, password;
+        Account() { }
+        string username;
+        string  password;
         bool isAdmin;
+        bool online=false;
+      
         public string Username { get => username; }
         public string Password { get => password; }
         public bool IsAdmin { get => isAdmin; }
-        Account()
-        {
-            
-        }
-        Account(string user, string pass, bool admin = false)
+        
+        Account( string user, string pass, bool admin = false)
         {
             username = user;
             password = pass;
             isAdmin = admin;
         }
+
         public void init(string user, string pass, bool admin = false)
         {
             instance = new Account(user, pass, admin);

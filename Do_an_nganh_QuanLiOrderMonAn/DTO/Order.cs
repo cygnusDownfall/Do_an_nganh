@@ -21,23 +21,22 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             SoLuong = 1;
             NgayTao = DateTime.Now;
         }
-        public Order(string id, DateTime ngaytao)
+        public Order( DateTime ngaytao)
         {
-            this.id = id;
             SoLuong = 1;
             NgayTao = ngaytao;
         }
-        public Order(string id, string tenmonan,int sl, DateTime ngaytao)
+        public Order(string tenmonan,int sl, DateTime ngaytao)
         {
-            this.id = id;
-
-            var data= CSDL.instance.Query("MonAnPhucVu", 
+            var data= CSDL.instance.Query("MonAn", 
                 MongoDB.Driver.Builders<MongoDB.Bson.BsonDocument>.Filter.Eq("Name",tenmonan));
-            if (data != null)
-                monan = new MonAn(data[0].GetValue(0).ToString(),
+            if (data != null&&data.Count!=0)
+            {
+                monan = new MonAn(
                     tenmonan
-                    , Convert.ToInt32(data[0].GetValue(2).ToString()));
-            else System.Windows.Forms.MessageBox.Show("Khong tim thay order nao co ten la; {0} !",tenmonan);
+                    , data[0].GetValue(2).AsInt32, data[0].GetValue(3).AsString);
+            }
+            else System.Windows.Forms.MessageBox.Show(String.Format("Khong tim thay mon an nao co ten la; {0} !", tenmonan));
             NgayTao = ngaytao;
         }
     }

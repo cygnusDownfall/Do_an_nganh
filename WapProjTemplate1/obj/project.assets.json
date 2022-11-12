@@ -8,6 +8,15 @@
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
         }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.14393/win10-arm": {
@@ -16,6 +25,15 @@
         "build": {
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
+        }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
         }
       }
     },
@@ -26,6 +44,15 @@
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
         }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.14393/win10-arm64-aot": {
@@ -34,6 +61,15 @@
         "build": {
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
+        }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
         }
       }
     },
@@ -44,6 +80,15 @@
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
         }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.14393/win10-x64-aot": {
@@ -52,6 +97,15 @@
         "build": {
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
+        }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
         }
       }
     },
@@ -62,6 +116,15 @@
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
         }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.14393/win10-x86-aot": {
@@ -70,6 +133,15 @@
         "build": {
           "build/Microsoft.Windows.SDK.BuildTools.props": {},
           "build/Microsoft.Windows.SDK.BuildTools.targets": {}
+        }
+      },
+      "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Do_an_nganh_QuanLiOrderMonAn.dll": {}
         }
       }
     }
@@ -266,10 +338,16 @@
         "schemas/10.0.25231.0/winrt/UapManifestSchema_v7.xsd",
         "schemas/10.0.25231.0/winrt/UapManifestSchema_v8.xsd"
       ]
+    },
+    "Do_an_nganh_QuanLiOrderMonAn/1.0.0": {
+      "type": "project",
+      "path": "../Do_an_nganh_QuanLiOrderMonAn/Do_an_nganh_QuanLiOrderMonAn.csproj",
+      "msbuildProject": "../Do_an_nganh_QuanLiOrderMonAn/Do_an_nganh_QuanLiOrderMonAn.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "UAP,Version=v10.0.14393": [
+      "Do_an_nganh_QuanLiOrderMonAn >= 1.0.0",
       "Microsoft.Windows.SDK.BuildTools >= 10.0.25231-preview"
     ]
   },
@@ -304,7 +382,11 @@
       "frameworks": {
         "uap10.0.14393": {
           "targetAlias": "net451",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj": {
+              "projectPath": "E:\\bt\\Do_an_nganh\\Do_an_nganh_QuanLiOrderMonAn\\Do_an_nganh_QuanLiOrderMonAn.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -336,7 +418,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
