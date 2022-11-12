@@ -8,14 +8,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     public class MonAn
     {
         public string _id;
-        public string Tenmonan;
+        public string TenMonAn;
         public int Gia;
-        public string Mota;
+        public string MoTa;
         public MonAn(string tenmon, int gia, string mota)
         {
-            Tenmonan= tenmon;
+            TenMonAn= tenmon;
             Gia= gia;
-            Mota= mota;
+            MoTa= mota;
         }
 
     }
