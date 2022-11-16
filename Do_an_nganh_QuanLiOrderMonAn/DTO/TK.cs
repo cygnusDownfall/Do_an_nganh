@@ -11,13 +11,5 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     class TK
     {
         
-        public string username;
-       
-        public string password;
-       
-        public string isAdmin;
-        
-        public string online ;
-
     }
 }

@@ -32,7 +32,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
         public static bool LoadAccount(string name,string pass,bool isadmin) //dc goi vao luc nhan nut dang nhap
         {
-            bool kq= CSDL.instance.SearchAccount(name,pass,isadmin);
+            bool kq = true;
             if (!kq) System.Windows.Forms.MessageBox.Show("Dang nhap khong thanh cong \n Co the ban da nhap sai en dang nhap hoac mat khau ! \n Luu y: ban khong the dang nhap tren nhieu thiet bi cung luc");
          
             return kq;
@@ -40,12 +40,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         public void changePass(string newpass)
         {
             password = newpass;
-            CSDL.instance.Update("Account", username, "Password", password);
+            //CSDL.instance.Update("Account", username, "Password", password);
             System.Windows.Forms.MessageBox.Show("Doi mat khau thanh cong !");
         }
         public void DeleteAccount()
         {
-            CSDL.instance.Remove("Account",username);
+            //CSDL.instance.Remove("Account",username);
             instance = null;
             BUS.QLTaiKhoan.instance.LogOut();
         }

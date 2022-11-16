@@ -16,13 +16,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             get
             {
-                List<string> list = new List<string>();
-                var x = CSDL.instance.GetAllInCollection("NhanVien");
-                foreach (var y in x)
-                {
-                    list.Add(y.GetValue(1).AsString);
-                }
-                return list;
+                return null;
             }
         }
         public void ThemNhanVien(DTO.NhanVien nv)

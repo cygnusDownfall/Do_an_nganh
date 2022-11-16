@@ -13,46 +13,34 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             get
             {
-                return CSDL.instance.LayDanhSachOrder();
+                return CSDL.instance.Query<Order>("Order").Result;
             }
         }
         public List<string> danhsachtheongay
         {
             get
             {
-                List<string> list = new List<string>();
-                var x = CSDL.instance.GetAllInCollection("Order");
-                foreach (var y in x)
-                {
-                    list.Add(y.GetValue(3).AsDateTime.ToString());
-                }
-                return list;
+                return null;
             }
         }
         public List<string> danhsachtheoban
         {
             get
             {
-                List<string> list = new List<string>();
-                var x = CSDL.instance.GetAllInCollection("NhanVien");
-                foreach (var y in x)
-                {
-                    list.Add(y.GetValue(1).AsString);
-                }
-                return list;
+                return null;
             }
         }
         public List<Order> TimOrder(MongoDB.Driver.FilterDefinition<MongoDB.Bson.BsonDocument> filter)
         {
-            return CSDL.instance.LayDanhSachOrder(filter);
+            return null;
         }
         public void SuaThongTinOrder(string tenorder, string thuoctinh, string value)
         {
-            CSDL.instance.Update("Order", tenorder, thuoctinh, value);
+           
         }
         public void XoaOrder(string tenOrder)
         {
-            CSDL.instance.Remove("Order", tenOrder);
+          
         }
     }
 }

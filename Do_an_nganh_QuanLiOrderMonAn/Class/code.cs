@@ -16,5 +16,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.Class
             
             return doc.Substring(i,n-i+1);
         }
+        public static int ResupdateToIntRowsImpact(string doc)
+        {
+            int i = doc.Length - 1;
+            while (doc[i] < '0' || doc[i] > '9') i--;
+            int j = i--;
+            while (doc[j] > '0' && doc[j] < '9') j--;
+            return Convert.ToInt32( doc.Substring(j+1,i-j));
+        }
     }
 }

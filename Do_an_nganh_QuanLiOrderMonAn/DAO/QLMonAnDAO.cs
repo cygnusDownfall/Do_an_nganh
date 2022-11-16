@@ -10,36 +10,28 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
     {
         QLMonAnDAO() { }
         public static QLMonAnDAO Instance = new QLMonAnDAO();
-        public List<MonAn> MenuMonAn
+        public  List<MonAn> MenuMonAn
         {
             get
             {
-                    return CSDL.instance.LayMenuMonAn();
+                return CSDL.instance.Query<MonAn>("MonAn").Result;
             }
         }
         public List<MonAn> TimMonAn(string properties,string value)
         {
-                var filter = Builders<BsonDocument>.Filter.Eq(properties, value);
-                return CSDL.instance.LayMenuMonAn(filter);
+            return null;
         }
         public void ThemMonAn(string tenmonan, int gia)
         {
 
-            CSDL.instance.Insert("MonAn",
-                new MongoDB.Bson.BsonDocument
-                {
-                    {"Name",tenmonan },
-                    {"Cost",gia }
-                }
-            );
         }
         public void CapNhatMonAn(string tenmonan, string thuoctinh, string value)
         {
-            CSDL.instance.Update("MonAn", tenmonan, thuoctinh, value);
+            
         }
         public void XoaMonAn(string tenmon)
         {
-            CSDL.instance.Remove("MonAn", tenmon);
+            
         }
 
     }

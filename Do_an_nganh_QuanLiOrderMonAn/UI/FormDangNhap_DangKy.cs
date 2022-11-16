@@ -50,11 +50,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             isAdmincb.Items.Add("Quản lí");
             isAdmincb.Items.Add("Nhân viên");
             isAdmincb.SelectedText = "Quản lí";
-            //  CSDL.instance.Post<Order>("Order",new Order("ga nuong", 5, DateTime.Now));
-          List<MonAn> ds= await CSDL.instance.Query<MonAn>("MonAn",@"""filter"":{""Tenmonan"":""ga nuong""}");
-           foreach(var x in ds)
+
+            List<MonAn> ma = await CSDL.instance.Query<MonAn>("MonAn");
+            foreach (var x in ma)
             {
-                MessageBox.Show(x.ToString());
+                MessageBox.Show(x.MoTa);
             }
         }
 

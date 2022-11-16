@@ -52,3 +52,9 @@ E:\bt\Do_an_nganh\WapProjTemplate1\obj\Debug\qualifiers.txt.intermediate
 E:\bt\Do_an_nganh\WapProjTemplate1\obj\Debug\MultipleQualifiersPerDimensionFound.txt
 E:\bt\Do_an_nganh\WapProjTemplate1\obj\Debug\ProjectArchitectures.txt
 E:\bt\Do_an_nganh\WapProjTemplate1\obj\Debug\WapProjTemplate1.wapproj.LastBuild.txt
+E:\bt\Do_an_nganh\WapProjTemplate1\bin\AnyCPU\Debug\Do_an_nganh_QuanLiOrderMonAn\Microsoft.Bcl.AsyncInterfaces.dll
+E:\bt\Do_an_nganh\WapProjTemplate1\bin\AnyCPU\Debug\Do_an_nganh_QuanLiOrderMonAn\RestSharp.dll
+E:\bt\Do_an_nganh\WapProjTemplate1\bin\AnyCPU\Debug\Do_an_nganh_QuanLiOrderMonAn\System.Text.Encodings.Web.dll
+E:\bt\Do_an_nganh\WapProjTemplate1\bin\AnyCPU\Debug\Do_an_nganh_QuanLiOrderMonAn\System.Text.Json.dll
+E:\bt\Do_an_nganh\WapProjTemplate1\bin\AnyCPU\Debug\Do_an_nganh_QuanLiOrderMonAn\System.Threading.Tasks.Extensions.dll
+E:\bt\Do_an_nganh\WapProjTemplate1\bin\AnyCPU\Debug\Do_an_nganh_QuanLiOrderMonAn\System.ValueTuple.dll

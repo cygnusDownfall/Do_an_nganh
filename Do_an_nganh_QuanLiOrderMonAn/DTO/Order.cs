@@ -7,18 +7,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     [Serializable]
     public class Order
     {
-        public string _id;
-
         public string TenMonAn;
+        public string NguoiPhucVu;
 
         public int SoLuong;
 
         public DateTime NgayTao;
-       
+        public int Ban;
 
-        public Order(string id)
+        public Order()
         {
-            _id = id;
             SoLuong = 1;
             NgayTao = DateTime.Now;
         }

@@ -16,29 +16,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             get
             {
-                List<string> list = new List<string>();
-                var x=CSDL.instance.GetAllInCollection("Account");
-                foreach(var y in x)
-                {
-                    list.Add(y.GetValue(1).AsString);
-                }
-                return list;
+                return null;
             }
         }
         public void ThemTaiKhoan(string name, string pass) //admin tao them tai khoan cho nhan vien
         {
-            CSDL.instance.Insert("Account", new MongoDB.Bson.BsonDocument()
-            {
-                {"Name",name},
-                { "Password", pass },
-                {"isAdmin",false },
-                {"online",false }
-            });
+           
         }
 
         public void XoaTaiKhoanHienTai()
         {
-            Account.instance.DeleteAccount();
+          
         }
 
         //..........................................
@@ -48,7 +36,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             if (Account.LoadAccount(username, pass, isadmin))
             {
                 //cap nhat trang thai online
-                CSDL.instance.Update("Acccount", Account.instance.Username, "online", true);
+
+                //CSDL.instance.Update("Acccount", Account.instance.Username, "online", true);
+
+
                 if (Account.instance.IsAdmin)
                 {
                     ADMINFORM a = new ADMINFORM();
@@ -69,7 +60,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         public void LogOut()
         {
             //cap nhat trang thai online
-            CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
+            //CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
 
         }
     }

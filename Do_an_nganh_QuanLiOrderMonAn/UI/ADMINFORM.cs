@@ -103,16 +103,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         void basicloadlistview()
         {
             order.Items.Clear();
-            List<BsonDocument> orderS = CSDL.instance.GetAllInCollection("Order");
+            List<Order> orderS = CSDL.instance.Query<Order>("Order").Result;
 
             if (orderS == null) return;
 
             for (int i = 0, n = orderS.Count; i < n; i++)
             {
-                order.Items.Add(orderS[i].GetValue(1).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(2).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(3).AsDateTime.ToString());
-                order.Items[i].SubItems.Add(orderS[i].GetValue(4).AsInt32.ToString());
+                order.Items.Add(orderS[i].TenMonAn);
+                order.Items[i].SubItems.Add(orderS[i].NguoiPhucVu);
+                order.Items[i].SubItems.Add(orderS[i].NgayTao.ToShortTimeString());
+                order.Items[i].SubItems.Add(orderS[i].Ban.ToString());
             }
 
         }
@@ -133,7 +133,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                         if (ma == null) return;
                         for (int i = 0, n = ma.Count; i < n; i++)
                         {
-                            kq.Add(ma[i].Tenmonan);
+                            kq.Add(ma[i].TenMonAn);
                         }
                         break;
                     }
@@ -149,7 +149,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                     }
                 case 4:
                     {
-                        kq = CSDL.instance.danhsachban();
+                        kq = null;
                         break;
                     }
             }
@@ -162,17 +162,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         void loadlistview(string field, string value)
         {
             order.Items.Clear();
-            List<BsonDocument> orderS = CSDL.instance.Query("Order", Builders<BsonDocument>.Filter.Eq(field, value));
 
-            if (orderS == null) return;
-
-            for (int i = 0, n = orderS.Count; i < n; i++)
-            {
-                order.Items.Add(orderS[i].GetValue(1).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(2).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(3).AsString);
-                order.Items[i].SubItems.Add(orderS[i].GetValue(4).AsInt32.ToString());
-            }
         }
 
 
