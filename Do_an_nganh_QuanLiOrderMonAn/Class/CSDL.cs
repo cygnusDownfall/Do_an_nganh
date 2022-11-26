@@ -77,7 +77,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         
         public async Task<List<T>> Query<T>(string CollectionName,string filter="")
         {
-            string res = await Rest(CollectionName, "findOne", " \"filter\"  :{" + filter + "} ");
+            string res = await Rest(CollectionName, "find", " \"filter\"  :{" + filter + "} ");
             string s= code.documentToJsonarray(res);
             return JsonConvert.DeserializeObject<List<T>>(s) ;
         }
@@ -91,7 +91,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         {
             await Rest(CollectionName, "insertMany", "\"document\":" + JsonConvert.SerializeObject(values));
         }
-        public async void Update(string CollectionName, string search,string name, string setpropertie, string value)
+        public async void UpdateOne(string CollectionName, string search,string name, string setpropertie, string value)
         {
             if (name != null)
             {
@@ -109,34 +109,46 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 string filter = "\"filter\":{\""+search+"\":\""+name+"\"}";
                 string cmd =filter+","+update;
                 await Rest(CollectionName,"updateOne",cmd); 
+                
             }
         }
-        public int UpdateMany<T>(string CollectionName, string filt, string setpropertie, T value)
+        public async Task<int> UpdateMany(string CollectionName, string filt, string setpropertie,string value)
         {
             if (value != null)
             {
-                string update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": \"" + value + "\" }}";
-                string filter = "\"filter\":{\""+filt+"\"}";
+                string update;
+                try
+                {
+                    int val = Convert.ToInt32(value);
+                    update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": " + val + " }}";
+                }
+                catch
+                {
+                    update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": \"" + value + "\" }}";
+                }
+                string filter = "\"filter\":{"+filt+"}";
                 string cmd = filter + "," + update;
-                string res=Rest(CollectionName, "updateOne", cmd).Result;
+                string res=await Rest(CollectionName, "updateMany", cmd);
                 return code.ResupdateToIntRowsImpact(res);
             }
             return 0;
         }
-        public async void RemoveAll<T>(string CollectionName,string filt)
+        public async Task<int> RemoveAll(string CollectionName,string filt="")
         {
             if (filt != null)
             {
-                string filter = "\"filter\":{\"" + filt + "\"}";
+                string filter = "\"filter\":{" + filt + "}";
                 string cmd = filter ;
-                await Rest(CollectionName, "deleteMany", cmd);
+                string res=await Rest(CollectionName, "deleteMany", cmd);
+                return code.ResupdateToIntRowsImpact(res);
             }
+            return 0;
         }
-        public async void RemoveOne<T>(string CollectionName, string filt)
+        public async void RemoveOne(string CollectionName, string filt="")
         {
             if (filt != null)
             {
-                string filter = "\"filter\":{\"" + filt + "\"}";
+                string filter = "\"filter\":{" + filt + "}";
                 string cmd = filter;
                 await Rest(CollectionName, "deleteOne", cmd);
             }

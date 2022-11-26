@@ -6,24 +6,20 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     [Serializable]
     public class MonAn
     {
-        string mamonan;
-        public string MaMonAn { get => mamonan; }
+
+        public string _id;
+       
         public string TenMonAn;
         public int Gia;
         public string MoTa;
-        public MonAn(string tenmon, int gia, string mota)
+        public MonAn() { }
+        public MonAn(string id,string tenmon, int gia, string mota)
         {
-            TenMonAn= tenmon;
-            Gia= gia;
-            MoTa= mota;
-        }
-        [JsonConstructor]
-        public MonAn(object _id,string tenmon, int gia, string mota)
-        {
-            mamonan=_id.ToString();
+            _id = id;
             TenMonAn = tenmon;
             Gia = gia;
             MoTa = mota;
         }
+       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Do_an_nganh_QuanLiOrderMonAn.BUS;
+using Do_an_nganh_QuanLiOrderMonAn.Class;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
 using Newtonsoft.Json;
 using System;
@@ -51,11 +52,28 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             isAdmincb.Items.Add("Nhân viên");
             isAdmincb.SelectedText = "Quản lí";
 
-            List<MonAn> ma = await CSDL.instance.Query<MonAn>("MonAn");
-            foreach (var x in ma)
-            {
-                MessageBox.Show(x.MoTa);
-            }
+            string hash = code.InitHash(9);
+            MessageBox.Show(hash);
+            string id = code.InitHash(9);
+            MessageBox.Show(id);
+
+            string idnext= code.CreateNextID(id, hash,1);
+            MessageBox.Show(idnext);
+
+            //CSDL.instance.Insert<MonAn>("MonAn", new MonAn("4", "com chien", 15000, "com cien rat ngon"));
+            //CSDL.instance.Insert<MonAn>("MonAn", new MonAn("5", "com chien", 15000, "com cien rat ngon"));
+            //CSDL.instance.Insert<MonAn>("MonAn", new MonAn("6", "com chien", 15000, "com cien rat ngon"));
+
+            //int i=await CSDL.instance.RemoveAll("MonAn");
+
+            //int y = await CSDL.instance.UpdateMany("MonAn", "\"Gia\":15000", "Gia", "12");
+            //MessageBox.Show(y.ToString());
+
+            //List<MonAn> ma = await CSDL.instance.Query<MonAn>("MonAn");
+            //foreach (var x in ma)
+            //{
+            //    MessageBox.Show(x._id);
+            //}
         }
 
         private void LogInbt_Click(object sender, EventArgs e)
