@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     [Serializable]
-    public class Order
+    public class Order:Block
     {
         public string TenMonAn;
         public string NguoiPhucVu;
@@ -27,9 +27,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
         public Order(string tenmonan,int sl, DateTime ngaytao)
         {
-
             SoLuong = sl;
             NgayTao = ngaytao;
+        }
+        public override Block CreateNext()
+        {
+            base.CreateNext();
+
         }
     }
 }

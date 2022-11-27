@@ -52,7 +52,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             isAdmincb.Items.Add("Nhân viên");
             isAdmincb.SelectedText = "Quản lí";
 
-            string hash = code.InitHash(9);
+            string hash = Block<Order>.InitHash(9);
             MessageBox.Show(hash);
             string id = code.InitHash(9);
             MessageBox.Show(id);
