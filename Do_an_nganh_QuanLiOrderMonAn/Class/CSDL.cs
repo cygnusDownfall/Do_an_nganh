@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Do_an_nganh_QuanLiOrderMonAn.Class;
 using RestSharp;
 using System.Windows.Forms;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Collections.ObjectModel;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
@@ -17,7 +14,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     {
         CSDL()
         {
-            //connect();
+            
         }
 
         public static CSDL instance = new CSDL();
@@ -29,35 +26,33 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
 
  
-        public void Post<T>(string collection, T obj, string cmd = "insertOne") 
+        //public void Post<T>(string collection, T obj, string cmd = "insertOne") 
+        //{
+
+
+        //    string head = String.Format("{0}/action/{1}", apiinfo.Url, cmd);
+        //    /*string body1 = String.Format("--header 'Content-Type: application/json' \\\r\n  --header 'Access-Control-Request-Headers: *' \\\r\n --header \"api-key:{0}\" \\\r\n  "
+        //        , apiinfo.Key);*/
+        //    string body2 = " '{\r\n   \"dataSource\":\"" + apiinfo.Cluster + "\",\r\n   ";
+        //    //string body2 = " '{\r\n   \"dataSource\":\" " + apiinfo.Cluster + " \",\r\n   ";
+        //    string body3 = " \"database\":\"" + apiinfo.Database + "\",\r\n   \"collection\":\"" + collection + "\",\r\n ";
+
+        //    string p = body2 + body3 + " \"document\" :" + JsonConvert.SerializeObject(obj) + "}'";
+        //    StringContent content = new StringContent(p);
+
+        //    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+        //    //content.Headers.Add(p);
+        //    content.Headers.Add("Access-Control-Request-Headers", "*");
+        //    content.Headers.Add("api-key", apiinfo.Key);
+
+        //    var x = httpClient.PostAsync(head, content);
+        //    System.Windows.Forms.MessageBox.Show(x.Result.ToString());
+        //}
+
+        
+        public async Task<string> Rest(string collection,string action,string cmd)//su dung endpoint co san 
         {
-
-
-            string head = String.Format("{0}/action/{1}", apiinfo.Url, cmd);
-            /*string body1 = String.Format("--header 'Content-Type: application/json' \\\r\n  --header 'Access-Control-Request-Headers: *' \\\r\n --header \"api-key:{0}\" \\\r\n  "
-                , apiinfo.Key);*/
-            string body2 = " '{\r\n   \"dataSource\":\"" + apiinfo.Cluster + "\",\r\n   ";
-            //string body2 = " '{\r\n   \"dataSource\":\" " + apiinfo.Cluster + " \",\r\n   ";
-            string body3 = " \"database\":\"" + apiinfo.Database + "\",\r\n   \"collection\":\"" + collection + "\",\r\n ";
-
-            string p = body2 + body3 + " \"document\" :" + JsonConvert.SerializeObject(obj) + "}'";
-            StringContent content = new StringContent(p);
-
-            content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-            //content.Headers.Add(p);
-            content.Headers.Add("Access-Control-Request-Headers", "*");
-            content.Headers.Add("api-key", apiinfo.Key);
-
-            var x = httpClient.PostAsync(head, content);
-            System.Windows.Forms.MessageBox.Show(x.Result.ToString());
-        }
-        public async Task<string> Rest(string collection,string action,string cmd)
-        {
-            var client = new RestClient(apiinfo.Url+"/action/"+action);
-            var request = new RestRequest();
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Access-Control-Request-Headers", "*");
-            request.AddHeader("api-key", apiinfo.Key);
+            
             var body = @"{" + "\n" +
 @" ""collection"":"""+collection+@"""," + "\n" +
 @" ""database"":"""+apiinfo.Database+@"""," + "\n" +
@@ -65,10 +60,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
  cmd+ "\n" +
 @"" + "\n" +
 @"}";
-            request.AddStringBody(body, DataFormat.Json);
-            RestResponse response = await client.PostAsync(request);
-            MessageBox.Show(response.Content.ToString());
-            return response.Content.ToString();
+            
+            return await RestRequest("data/v1/"+action, body);
         }
     
 
@@ -77,7 +70,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         
         public async Task<List<T>> Query<T>(string CollectionName,string filter="")
         {
-            string res = await Rest(CollectionName, "find", " \"filter\"  :{" + filter + "} ");
+            string res = await Rest(CollectionName, "find", " \"filter\"  :{" + filter + ",\"hash\":\""+Block.getDefaulthash()+"\"} ");
             string s= code.documentToJsonarray(res);
             return JsonConvert.DeserializeObject<List<T>>(s) ;
         }
@@ -154,6 +147,20 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
         }
 
+        #endregion
+        #region Block
+        public async Task<string> RestRequest(string route,string body) //dung cho endpoint custom
+        {
+            var client = new RestClient(apiinfo.Url+route);
+            var request = new RestRequest();
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Access-Control-Request-Headers", "*");
+            request.AddHeader("api-key", apiinfo.Key);
+            request.AddStringBody(body, DataFormat.Json);
+            RestResponse response = await client.PostAsync(request);
+            MessageBox.Show(response.Content.ToString());
+            return response.Content.ToString();
+        }
         #endregion
 
         #region Ham ket noi truc tiep khong dung nua

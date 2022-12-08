@@ -25,15 +25,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             SoLuong = 1;
             NgayTao = ngaytao;
         }
-        public Order(string tenmonan,int sl, DateTime ngaytao)
+        public Order(string _id,string tenmonan,int sl, DateTime ngaytao)
         {
+            this._id= _id;
             SoLuong = sl;
             NgayTao = ngaytao;
         }
-        public override Block CreateNext()
-        {
-            base.CreateNext();
-
-        }
+       
     }
 }

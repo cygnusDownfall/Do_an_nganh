@@ -5,16 +5,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     public class Block
     {
-        public string _id;
+        public string id;
         public string hash;
         
-        public virtual Block CreateNext() 
-        {
-           Block block = new Block();
-           hash = InitHash(12);
-           block._id = CreateNextID(_id,hash, new Random().Next(1, 4));
-            return block;
-        }
+        private static int numhash=20;
+        
         public Block() { }
         public static string InitHash(int length)
         {
@@ -44,25 +39,6 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             return res;
 
         }
-        public static string CreateNextID(string id, string hash, int htype)
-        {
-            string res = "";
-            int n = id.Length;
-            Random rd = new Random();
-            int ihash = 0;
-            for (int i = 0; i < n && ihash < n;)
-            {
-                for (int m = i + htype; i < m; i++)
-                {
-                    res += id[i];
-                }
-
-                for (int m = ihash + htype; ihash < m; ihash++)
-                {
-                    res += hash[ihash];
-                }
-            }
-            return res.Substring(0, n);
-        }
+        
     }
 }

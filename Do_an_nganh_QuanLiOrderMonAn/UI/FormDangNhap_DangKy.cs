@@ -52,13 +52,16 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             isAdmincb.Items.Add("Nhân viên");
             isAdmincb.SelectedText = "Quản lí";
 
-            string hash = Block<Order>.InitHash(9);
-            MessageBox.Show(hash);
-            string id = code.InitHash(9);
-            MessageBox.Show(id);
+            //string hash = Block.InitHash(9);
+            //MessageBox.Show(hash);
+            //string id = Block.InitHash(9);
+            //MessageBox.Show(id);
 
-            string idnext= code.CreateNextID(id, hash,1);
-            MessageBox.Show(idnext);
+            //string idnext= Block.CreateNextID(id, hash,1);
+            //MessageBox.Show(idnext);
+
+            await CSDL.instance.RestRequest("addBlock","{}");
+
 
             //CSDL.instance.Insert<MonAn>("MonAn", new MonAn("4", "com chien", 15000, "com cien rat ngon"));
             //CSDL.instance.Insert<MonAn>("MonAn", new MonAn("5", "com chien", 15000, "com cien rat ngon"));
