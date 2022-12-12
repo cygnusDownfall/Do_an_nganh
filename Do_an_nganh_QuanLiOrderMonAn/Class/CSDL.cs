@@ -7,105 +7,126 @@ using RestSharp;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     class CSDL
     {
+        string[] collectionwithBlock = { "Order" };
         CSDL()
         {
-            
+
         }
 
         public static CSDL instance = new CSDL();
 
 
         HttpClient httpClient = new HttpClient();
-        //MongoClient client;
-        //IMongoDatabase database;
 
-
- 
-        //public void Post<T>(string collection, T obj, string cmd = "insertOne") 
-        //{
-
-
-        //    string head = String.Format("{0}/action/{1}", apiinfo.Url, cmd);
-        //    /*string body1 = String.Format("--header 'Content-Type: application/json' \\\r\n  --header 'Access-Control-Request-Headers: *' \\\r\n --header \"api-key:{0}\" \\\r\n  "
-        //        , apiinfo.Key);*/
-        //    string body2 = " '{\r\n   \"dataSource\":\"" + apiinfo.Cluster + "\",\r\n   ";
-        //    //string body2 = " '{\r\n   \"dataSource\":\" " + apiinfo.Cluster + " \",\r\n   ";
-        //    string body3 = " \"database\":\"" + apiinfo.Database + "\",\r\n   \"collection\":\"" + collection + "\",\r\n ";
-
-        //    string p = body2 + body3 + " \"document\" :" + JsonConvert.SerializeObject(obj) + "}'";
-        //    StringContent content = new StringContent(p);
-
-        //    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-        //    //content.Headers.Add(p);
-        //    content.Headers.Add("Access-Control-Request-Headers", "*");
-        //    content.Headers.Add("api-key", apiinfo.Key);
-
-        //    var x = httpClient.PostAsync(head, content);
-        //    System.Windows.Forms.MessageBox.Show(x.Result.ToString());
-        //}
-
-        
-        public async Task<string> Rest(string collection,string action,string cmd)//su dung endpoint co san 
+        public async Task<string> Rest(string collection, string route, string cmd)
         {
-            
             var body = @"{" + "\n" +
-@" ""collection"":"""+collection+@"""," + "\n" +
-@" ""database"":"""+apiinfo.Database+@"""," + "\n" +
-@" ""dataSource"":"""+apiinfo.Cluster+@"""," + "\n" +
- cmd+ "\n" +
-@"" + "\n" +
-@"}";
-            
-            return await RestRequest("data/v1/"+action, body);
-        }
-    
+            @" ""collection"":""" + collection + @"""," + "\n" +
+            @" ""database"":""" + apiinfo.Database + @"""," + "\n" +
+            @" ""dataSource"":""" + apiinfo.Cluster + @"""," + "\n" +
+            cmd + "\n" +
+            @"" + "\n" +
+            @"}";
 
-      
+            return await RestRequest(route, body);
+        }
+
+
+
         #region query,insert,update,remove
-        
-        public async Task<List<T>> Query<T>(string CollectionName,string filter="")
-        {
-            string res = await Rest(CollectionName, "find", " \"filter\"  :{" + filter + ",\"hash\":\""+Block.getDefaulthash()+"\"} ");
-            string s= code.documentToJsonarray(res);
-            return JsonConvert.DeserializeObject<List<T>>(s) ;
-        }
-        
 
-        public async void Insert<T>(string CollectionName,T value)
+        public async Task<List<T>> Query<T>(string CollectionName, string filter = "", string id = "")
         {
-            await Rest(CollectionName,"insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
+            string res;
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+
+                res = await Rest(CollectionName, "find", "");//ch xong
+            }
+            else
+            {
+
+                res = await Rest(CollectionName, "data/v1/find", " \"filter\"  :{" + filter + "}");
+            }
+            string s = code.documentToJsonarray(res);
+            return JsonConvert.DeserializeObject<List<T>>(s);
         }
-        public async void Insert<T>(string CollectionName,List<T> values)
+
+        #region insert
+        public async void Insert<T>(string CollectionName, T value) where T : Block
+        {
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+                addBlock(CollectionName, JsonConvert.SerializeObject(value));
+            }
+            else
+            {
+                await Rest(CollectionName, "data/v1/insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
+            }
+
+        }
+        public async void Insert<T>(string CollectionName, List<T> values)
         {
             await Rest(CollectionName, "insertMany", "\"document\":" + JsonConvert.SerializeObject(values));
         }
-        public async void UpdateOne(string CollectionName, string search,string name, string setpropertie, string value)
+        #endregion
+        #region update
+        public void UpdateOne<T>(string CollectionName, T value)where T:Block
+        {
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+                addBlock(CollectionName, JsonConvert.SerializeObject(value),value.id);
+            }
+            else
+            {
+                MessageBox.Show("Loi update Block");
+            }
+
+        }
+        public void UpdateOne<T>(string CollectionName, string id, List<T> value) where T : Block
+        {
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+                foreach (var x in value)
+                {
+                    addBlock(CollectionName, JsonConvert.SerializeObject(x),x.id);
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Loi update Block");
+            }
+
+        }
+        public async void UpdateOne(string CollectionName, string search, string name, string setpropertie, string value)
         {
             if (name != null)
             {
                 string update;
                 try
                 {
-                     int val=Convert.ToInt32(value);
-                     update= "\"update\" : { \"$set\" : { \"" + setpropertie + "\": " + val + " }}";
+                    int val = Convert.ToInt32(value);
+                    update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": " + val + " }}";
                 }
                 catch
                 {
                     update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": \"" + value + "\" }}";
                 }
-               
-                string filter = "\"filter\":{\""+search+"\":\""+name+"\"}";
-                string cmd =filter+","+update;
-                await Rest(CollectionName,"updateOne",cmd); 
-                
+
+                string filter = "\"filter\":{\"" + search + "\":\"" + name + "\"}";
+                string cmd = filter + "," + update;
+                await Rest(CollectionName, "updateOne", cmd);
+
             }
         }
-        public async Task<int> UpdateMany(string CollectionName, string filt, string setpropertie,string value)
+        public async Task<int> UpdateMany(string CollectionName, string filt, string setpropertie, string value)
         {
             if (value != null)
             {
@@ -119,25 +140,27 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 {
                     update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": \"" + value + "\" }}";
                 }
-                string filter = "\"filter\":{"+filt+"}";
+                string filter = "\"filter\":{" + filt + "}";
                 string cmd = filter + "," + update;
-                string res=await Rest(CollectionName, "updateMany", cmd);
+                string res = await Rest(CollectionName, "updateMany", cmd);
                 return code.ResupdateToIntRowsImpact(res);
             }
             return 0;
         }
-        public async Task<int> RemoveAll(string CollectionName,string filt="")
+        #endregion
+        #region remove
+        public async Task<int> RemoveAll(string CollectionName, string filt = "")
         {
             if (filt != null)
             {
                 string filter = "\"filter\":{" + filt + "}";
-                string cmd = filter ;
-                string res=await Rest(CollectionName, "deleteMany", cmd);
+                string cmd = filter;
+                string res = await Rest(CollectionName, "deleteMany", cmd);
                 return code.ResupdateToIntRowsImpact(res);
             }
             return 0;
         }
-        public async void RemoveOne(string CollectionName, string filt="")
+        public async void RemoveOne(string CollectionName, string filt = "")
         {
             if (filt != null)
             {
@@ -148,10 +171,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
 
         #endregion
+
+        #endregion
         #region Block
-        public async Task<string> RestRequest(string route,string body) //dung cho endpoint custom
+        public async Task<string> RestRequest(string route, string body) //dung cho endpoint custom
         {
-            var client = new RestClient(apiinfo.Url+route);
+            var client = new RestClient(apiinfo.Url + route);
             var request = new RestRequest();
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Access-Control-Request-Headers", "*");
@@ -160,6 +185,24 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             RestResponse response = await client.PostAsync(request);
             MessageBox.Show(response.Content.ToString());
             return response.Content.ToString();
+        }
+        public void addBlock(string collection, string bodydoc, string id = "")
+        {
+            if (id != "")
+            {
+                id = "\"id\":\"" + id + "\"";
+            }
+            string body = "{ \n \"database\" : \"QLOrderMonAn\"," +
+                " \"collection\" : \"" + collection + "\",  " +
+                id +
+                " \"bodydoc\" : \"" + bodydoc + " \",\n}";
+
+            string res = RestRequest(apiinfo.Url + "addBlock", body).Result;
+        }
+        public T findBlock<T>(string collection, string body)
+        {
+            string res = RestRequest(apiinfo.Url + "findBlock", body).Result;
+            return JsonConvert.DeserializeObject<T>(res);
         }
         #endregion
 
@@ -254,7 +297,37 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         //}
         #endregion
 
+        #region k con dung
+        //MongoClient client;
+        //IMongoDatabase database;
 
+
+
+        //public void Post<T>(string collection, T obj, string cmd = "insertOne") 
+        //{
+
+
+        //    string head = String.Format("{0}/action/{1}", apiinfo.Url, cmd);
+        //    /*string body1 = String.Format("--header 'Content-Type: application/json' \\\r\n  --header 'Access-Control-Request-Headers: *' \\\r\n --header \"api-key:{0}\" \\\r\n  "
+        //        , apiinfo.Key);*/
+        //    string body2 = " '{\r\n   \"dataSource\":\"" + apiinfo.Cluster + "\",\r\n   ";
+        //    //string body2 = " '{\r\n   \"dataSource\":\" " + apiinfo.Cluster + " \",\r\n   ";
+        //    string body3 = " \"database\":\"" + apiinfo.Database + "\",\r\n   \"collection\":\"" + collection + "\",\r\n ";
+
+        //    string p = body2 + body3 + " \"document\" :" + JsonConvert.SerializeObject(obj) + "}'";
+        //    StringContent content = new StringContent(p);
+
+        //    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+        //    //content.Headers.Add(p);
+        //    content.Headers.Add("Access-Control-Request-Headers", "*");
+        //    content.Headers.Add("api-key", apiinfo.Key);
+
+        //    var x = httpClient.PostAsync(head, content);
+        //    System.Windows.Forms.MessageBox.Show(x.Result.ToString());
+        //}
+
+
+        #endregion
 
     }
 }

@@ -25,9 +25,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             SoLuong = 1;
             NgayTao = ngaytao;
         }
-        public Order(string _id,string tenmonan,int sl, DateTime ngaytao)
+        public Order(string id,string tenmonan,int sl, DateTime ngaytao)
         {
-            this._id= _id;
+            this.id= id;
             SoLuong = sl;
             NgayTao = ngaytao;
         }
