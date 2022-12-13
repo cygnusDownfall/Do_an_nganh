@@ -46,8 +46,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             string res;
             if (collectionwithBlock.Contains(CollectionName))
             {
-
-                res = await Rest(CollectionName, "find", "");//ch xong
+                id = "\"id\":\"" + id + "\"";
+                res = await Rest(CollectionName, "find", id);//ch xong
             }
             else
             {
@@ -81,21 +81,23 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         {
             if (collectionwithBlock.Contains(CollectionName))
             {
-                addBlock(CollectionName, JsonConvert.SerializeObject(value),value.id);
+                string id = "\"id\":\"" + value.id + "\"";
+                addBlock(CollectionName, JsonConvert.SerializeObject(value),id);
             }
             else
             {
                 MessageBox.Show("Loi update Block");
             }
-
         }
-        public void UpdateOne<T>(string CollectionName, string id, List<T> value) where T : Block
+        public void UpdateOne<T>(string CollectionName, List<T> value) where T : Block
         {
             if (collectionwithBlock.Contains(CollectionName))
             {
+                string id;
                 foreach (var x in value)
                 {
-                    addBlock(CollectionName, JsonConvert.SerializeObject(x),x.id);
+                    id= "\"id\":\"" + x.id + "\"";
+                    addBlock(CollectionName, JsonConvert.SerializeObject(x),id);
                 }
                 
             }
@@ -151,25 +153,54 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         #region remove
         public async Task<int> RemoveAll(string CollectionName, string filt = "")
         {
-            if (filt != null)
+            string res;
+            if (collectionwithBlock.Contains(CollectionName))
             {
-                string filter = "\"filter\":{" + filt + "}";
-                string cmd = filter;
-                string res = await Rest(CollectionName, "deleteMany", cmd);
-                return code.ResupdateToIntRowsImpact(res);
+                res = await Rest(CollectionName, "deleteBlock", "");
             }
+            else
+            {
+                if (filt != null)
+                {
+                    string filter = "\"filter\":{" + filt + "}";
+                    string cmd = filter;
+                    res = await Rest(CollectionName, "deleteMany", cmd);
+                    return code.ResupdateToIntRowsImpact(res);
+                }
+            }
+           
             return 0;
         }
         public async void RemoveOne(string CollectionName, string filt = "")
         {
-            if (filt != null)
+            string res;
+            if (collectionwithBlock.Contains(CollectionName))
             {
-                string filter = "\"filter\":{" + filt + "}";
-                string cmd = filter;
-                await Rest(CollectionName, "deleteOne", cmd);
+                res = await Rest(CollectionName, "deleteBlock", "");//ch xong
+            }
+            else
+            {
+                if (filt != null)
+                {
+                    string filter = "\"filter\":{" + filt + "}";
+                    string cmd = filter;
+                    await Rest(CollectionName, "deleteOne", cmd);
+                }
+            }
+           
+        }
+        public async void RemoveOne<T>(string CollectionName,T value)where T:Block
+        {
+            string res;
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+                res = await Rest(CollectionName, "deleteBlock", "\"id\":\"" + value.id + "\"");//ch xong
+            }
+            else
+            {
+                MessageBox.Show("dung sai ham r cha");
             }
         }
-
         #endregion
 
         #endregion
@@ -199,9 +230,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
             string res = RestRequest(apiinfo.Url + "addBlock", body).Result;
         }
-        public T findBlock<T>(string collection, string body)
+        public  T findBlock<T>(string collection, string id,int go)
         {
-            string res = RestRequest(apiinfo.Url + "findBlock", body).Result;
+            string res =Rest(collection, "findBlock", "").Result;
             return JsonConvert.DeserializeObject<T>(res);
         }
         #endregion
