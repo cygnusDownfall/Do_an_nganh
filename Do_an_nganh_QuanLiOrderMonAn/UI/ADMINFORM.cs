@@ -129,7 +129,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                     }
                 case 1:
                     {
-                        List<MonAn> ma = QLMonAn.instance.MenuMonAn;
+                        List<MonAn> ma = QLMonAn.instance.MenuMonAn().Result;
                         if (ma == null) return;
                         for (int i = 0, n = ma.Count; i < n; i++)
                         {

@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Do_an_nganh_QuanLiOrderMonAn\Do_an_nganh_QuanLiOrderMonAn.csproj">
+      <Project>{fb009248-381e-4155-9782-1d43ce1409a3}</Project>
+      <Name>Do_an_nganh_QuanLiOrderMonAn</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using Do_an_nganh_QuanLiOrderMonAn.DAO;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
 
@@ -13,12 +15,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
 
         }
         public static  QLMonAn instance = new QLMonAn();
-        public List<MonAn> MenuMonAn
+        public async Task<List<MonAn>> MenuMonAn()
         {
-            get
-            {
-                return QLMonAnDAO.Instance.MenuMonAn;
-            }
+            return await QLMonAnDAO.Instance.MenuMonAn();
         }
         public List<MonAn> TimMonAn(string properties, string value)
         {
@@ -29,33 +28,34 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
             }
             catch (Exception e)
             {
+                MessageBox.Show("Khong tim thay mon an :" + e.Message);
                 return null;
-                System.Windows.Forms.MessageBox.Show("Khong tim thay mon an :" + e.Message);
+               
             }
         }
-        public void ThemMonAn(string tenmonan, int gia)
+        public void ThemMonAn(string tenmonan, int gia,string mota="")
         {
             try
             {
-                QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia);
-                System.Windows.Forms.MessageBox.Show("Da them mon an thanh cong !");
+                QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia,mota);
+                MessageBox.Show("Da them mon an thanh cong !");
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("Them mon an khong thanh cong vi loi:"+e.Message);
+               MessageBox.Show("Them mon an khong thanh cong vi loi:"+e.Message);
             }
             
         }
-        public void CapNhatMonAn(string tenmonan,string thuoctinh, int gia)
+        public void CapNhatMonAn(string tenmonan,string thuoctinh,string value)
         {
             try
             {
-                QLMonAnDAO.Instance.CapNhatMonAn(tenmonan,thuoctinh, gia.ToString());
-                System.Windows.Forms.MessageBox.Show("Da cap nhat mon an thanh cong !");
+                QLMonAnDAO.Instance.CapNhatMonAn(tenmonan,thuoctinh, value);
+                MessageBox.Show("Da cap nhat mon an thanh cong !");
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("Cap nhat mon an khong thanh cong vi loi:" + e.Message);
+                MessageBox.Show("Cap nhat mon an khong thanh cong vi loi:" + e.Message);
             }
         }
         public void XoaMonAn(string tenmon)
@@ -63,11 +63,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
             try
             {
                 QLMonAnDAO.Instance.XoaMonAn(tenmon);
-                System.Windows.Forms.MessageBox.Show("Da xoa mon an thanh cong !");
+                MessageBox.Show("Da xoa mon an thanh cong !");
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("Xoa mon an khong thanh cong vi loi:" + e.Message);
+                MessageBox.Show("Xoa mon an khong thanh cong vi loi:" + e.Message);
             }
         }
     }

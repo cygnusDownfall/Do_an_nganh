@@ -126,7 +126,7 @@
             <param name="obj">The object.</param>
             <param name="writerSettings">The JsonWriter settings.</param>
             <param name="serializer">The serializer.</param>
-            <param name="configurator">The serializastion context configurator.</param>
+            <param name="configurator">The serialization context configurator.</param>
             <param name="args">The serialization args.</param>
             <returns>
             A JSON string.
@@ -19438,6 +19438,12 @@
             <param name="context">The deserialization context.</param>
             <param name="args">The deserialization args.</param>
             <returns>A deserialized value.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.EnumSerializer`1.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.EnumSerializer`1.GetHashCode">
+            <inheritdoc/>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.EnumSerializer`1.Serialize(MongoDB.Bson.Serialization.BsonSerializationContext,MongoDB.Bson.Serialization.BsonSerializationArgs,`0)">
             <summary>

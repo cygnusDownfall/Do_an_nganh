@@ -8,13 +8,6 @@ E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\obj\Debug\Do_an_nganh_QuanLiOrder
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\obj\Debug\Do_an_nganh_QuanLiOrderMonAn.exe
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\obj\Debug\Do_an_nganh_QuanLiOrderMonAn.pdb
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\obj\Debug\Do_an_nganh_QuanLiOrderMonAn.csproj.SuggestedBindingRedirects.cache
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\libzstd.dll
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\snappy32.dll
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\snappy64.dll
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\libsnappy64.so
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\libzstd.so
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\libsnappy64.dylib
-E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\libzstd.dylib
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\mongocrypt.dll
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\DnsClient.dll
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\Microsoft.Win32.Registry.dll
@@ -62,3 +55,8 @@ E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\System.Text.Encodings.W
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\System.Text.Json.xml
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\System.Threading.Tasks.Extensions.xml
 E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\System.ValueTuple.xml
+E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\Snappier.dll
+E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\ZstdSharp.dll
+E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+E:\bt\Do_an_nganh\Do_an_nganh_QuanLiOrderMonAn\bin\Debug\Snappier.xml

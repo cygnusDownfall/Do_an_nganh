@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
-using MongoDB.Bson;
-using MongoDB.Driver;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
@@ -10,28 +10,28 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
     {
         QLMonAnDAO() { }
         public static QLMonAnDAO Instance = new QLMonAnDAO();
-        public  List<MonAn> MenuMonAn
+        public async  Task<List<MonAn>> MenuMonAn()
         {
-            get
-            {
-                return CSDL.instance.Query<MonAn>("MonAn").Result;
-            }
+            return await CSDL.instance.Query<MonAn>("MonAn");
         }
         public List<MonAn> TimMonAn(string properties,string value)
         {
-            return null;
+            string filter= string.Format("\"{0}\":\"{1}\"", properties,value);
+            return CSDL.instance.Query<MonAn>("MonAn",filter).Result;
         }
-        public void ThemMonAn(string tenmonan, int gia)
+        public void ThemMonAn(string tenmonan, int gia,string mota="")
         {
-
+            MonAn ma = new MonAn(tenmonan, gia,mota);
+            CSDL.instance.Insert<MonAn>("MonAn", ma);
         }
-        public void CapNhatMonAn(string tenmonan, string thuoctinh, string value)
+        public void CapNhatMonAn(string id, string thuoctinh,string value)
         {
-            
+            CSDL.instance.UpdateOne("MonAn", "id", id, thuoctinh, value);
         }
         public void XoaMonAn(string tenmon)
         {
-            
+            string filter = "\"TenMonAn\":\"" + tenmon + "\"";
+            CSDL.instance.RemoveOne("MonAn",filter);
         }
 
     }

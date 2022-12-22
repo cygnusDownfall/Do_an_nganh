@@ -95,6 +95,37 @@
             The database namespace.
             </value>
         </member>
+        <member name="P:MongoDB.Driver.ChangeStreamDocument`1.DisambiguatedPaths">
+            <summary>
+            Gets the disambiguated paths if present.
+            </summary>
+            <value>
+            The disambiguated paths.
+            </value>
+            <remarks>
+            <para>
+            A document containing a map that associates an update path to an array containing the path components used in the update document. This data
+            can be used in combination with the other fields in an <see cref="P:MongoDB.Driver.ChangeStreamDocument`1.UpdateDescription"/> to determine the
+            actual path in the document that was updated. This is necessary in cases where a key contains dot-separated strings (i.e. <c>{ "a.b": "c" }</c>) or
+            a document contains a numeric literal string key (i.e. <c>{ "a": { "0": "a" } }</c>). Note that in this scenario, the numeric key can't be the top
+            level key because <c>{ "0": "a" }</c> is not ambiguous - update paths would simply be <c>'0'</c> which is unambiguous because BSON documents cannot have
+            arrays at the top level. Each entry in the document maps an update path to an array which contains the actual path used when the document
+            was updated. For example, given a document with the following shape <c>{ "a": { "0": 0 } }</c> and an update of <c>{ $inc: { "a.0": 1 } }</c>,
+            <see cref="P:MongoDB.Driver.ChangeStreamDocument`1.DisambiguatedPaths"/> would look like the following:
+            </para>
+            <code>
+              {
+                 "a.0": ["a", "0"]
+              }
+            </code>
+            <para>
+            In each array, all elements will be returned as strings with the exception of array indices, which will be returned as 32-bit integers.
+            </para>
+            <para>
+            Added in MongoDB version 6.1.0.
+            </para>
+            </remarks>
+        </member>
         <member name="P:MongoDB.Driver.ChangeStreamDocument`1.DocumentKey">
             <summary>
             Gets the document key.
@@ -968,13 +999,6 @@
             The name of the mechanism.
             </value>
         </member>
-        <member name="M:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.#ctor(MongoDB.Driver.Core.Authentication.UsernamePasswordCredential,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
-            <summary>
-            Initializes a new instance of the <see cref="T:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator"/> class.
-            </summary>
-            <param name="credential">The credentials.</param>
-            <param name="properties">The properties.</param>
-        </member>
         <member name="M:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.#ctor(MongoDB.Driver.Core.Authentication.UsernamePasswordCredential,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}},MongoDB.Driver.ServerApi)">
             <summary>
             Initializes a new instance of the <see cref="T:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator"/> class.
@@ -982,13 +1006,6 @@
             <param name="credential">The credentials.</param>
             <param name="properties">The properties.</param>
             <param name="serverApi">The server API.</param>
-        </member>
-        <member name="M:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
-            <summary>
-            Initializes a new instance of the <see cref="T:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator"/> class.
-            </summary>
-            <param name="username">The username.</param>
-            <param name="properties">The properties.</param>
         </member>
         <member name="M:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}},MongoDB.Driver.ServerApi)">
             <summary>
@@ -999,6 +1016,12 @@
             <param name="serverApi">The server API.</param>
         </member>
         <member name="P:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.DatabaseName">
+            <inheritdoc/>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.Authenticate(MongoDB.Driver.Core.Connections.IConnection,MongoDB.Driver.Core.Connections.ConnectionDescription,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Authentication.MongoAWSAuthenticator.AuthenticateAsync(MongoDB.Driver.Core.Connections.IConnection,MongoDB.Driver.Core.Connections.ConnectionDescription,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:MongoDB.Driver.Core.Authentication.MongoDBCRAuthenticator">
@@ -4347,26 +4370,6 @@
         <member name="M:MongoDB.Driver.Core.Compression.ZlibCompressor.Decompress(System.IO.Stream,System.IO.Stream)">
             <inheritdoc />
         </member>
-        <member name="P:MongoDB.Driver.Core.Compression.Zstandard.ZstandardStream.StreamReadHelper.ReadingState.DataPosition">
-            <summary>
-            Saves a position between different Read calls.
-            </summary>
-        </member>
-        <member name="P:MongoDB.Driver.Core.Compression.Zstandard.ZstandardStream.StreamReadHelper.ReadingState.IsDataDepleted">
-            <summary>
-            Shows whether the last attempt to read data from the stream contained records or no. <c>false</c> if no.
-            </summary>
-        </member>
-        <member name="P:MongoDB.Driver.Core.Compression.Zstandard.ZstandardStream.StreamReadHelper.ReadingState.LastReadDataSize">
-            <summary>
-            The size of the last fetched data from the stream.
-            </summary>
-        </member>
-        <member name="P:MongoDB.Driver.Core.Compression.Zstandard.ZstandardStream.StreamReadHelper.ReadingState.SkipDataReading">
-            <summary>
-            Determines whether stream.Read should be skipped until the internal buffer is depleted.
-            </summary>
-        </member>
         <member name="T:MongoDB.Driver.Core.Configuration.ClusterBuilder">
             <summary>
             Represents a cluster builder.
@@ -4402,6 +4405,13 @@
             Configures the connection pool settings.
             </summary>
             <param name="configurator">The connection pool settings configurator delegate.</param>
+            <returns>A reconfigured cluster builder.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.ClusterBuilder.ConfigureLoggingSettings(System.Func{MongoDB.Driver.Core.Configuration.LoggingSettings,MongoDB.Driver.Core.Configuration.LoggingSettings})">
+            <summary>
+            Configures the logging settings.
+            </summary>
+            <param name="configurator">The logging settings configurator delegate.</param>
             <returns>A reconfigured cluster builder.</returns>
         </member>
         <member name="M:MongoDB.Driver.Core.Configuration.ClusterBuilder.ConfigureSdamLogging(System.Func{MongoDB.Driver.Core.Configuration.SdamLoggingSettings,MongoDB.Driver.Core.Configuration.SdamLoggingSettings})">
@@ -5236,6 +5246,63 @@
             <inheritdoc/>
         </member>
         <member name="M:MongoDB.Driver.Core.Configuration.CryptClientSettings.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MongoDB.Driver.Core.Configuration.LoggingSettings">
+            <summary>
+            Represents the settings for logging.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Core.Configuration.LoggingSettings.LoggerFactory">
+            <summary>
+            Gets the logger factory.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Core.Configuration.LoggingSettings.MaxDocumentSize">
+            <summary>
+            Gets the maximum document size in chars
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.LoggingSettings.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,MongoDB.Driver.Optional{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Core.Configuration.LoggingSettings"/> class.
+            </summary>
+            <param name="loggerFactory">The logger factory.</param>
+            <param name="maxDocumentSize">The maximum document size in chars.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.LoggingSettings.op_Equality(MongoDB.Driver.Core.Configuration.LoggingSettings,MongoDB.Driver.Core.Configuration.LoggingSettings)">
+            <summary>
+            Determines whether two <see cref="T:MongoDB.Driver.Core.Configuration.LoggingSettings"/> instances are equal.
+            </summary>
+            <param name="lhs">The LHS.</param>
+            <param name="rhs">The RHS.</param>
+            <returns>
+              <c>true</c> if the left hand side is equal to the right hand side; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.LoggingSettings.op_Inequality(MongoDB.Driver.Core.Configuration.LoggingSettings,MongoDB.Driver.Core.Configuration.LoggingSettings)">
+            <summary>
+            Determines whether two <see cref="T:MongoDB.Driver.Core.Configuration.LoggingSettings"/> instances are not equal.
+            </summary>
+            <param name="lhs">The LHS.</param>
+            <param name="rhs">The RHS.</param>
+            <returns>
+              <c>true</c> if the left hand side is not equal to the right hand side; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.LoggingSettings.Equals(MongoDB.Driver.Core.Configuration.LoggingSettings)">
+            <summary>
+            Determines whether the specified <see cref="T:MongoDB.Driver.Core.Configuration.LoggingSettings" /> is equal to this instance.
+            </summary>
+            <param name="rhs">The <see cref="T:MongoDB.Driver.Core.Configuration.LoggingSettings" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:MongoDB.Driver.Core.Configuration.LoggingSettings" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.LoggingSettings.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:MongoDB.Driver.Core.Configuration.LoggingSettings.GetHashCode">
             <inheritdoc/>
         </member>
         <member name="T:MongoDB.Driver.Core.Configuration.SdamLoggingSettings">
@@ -6098,6 +6165,11 @@
             Represents a connection factory.
             </summary>
         </member>
+        <member name="P:MongoDB.Driver.Core.Connections.IConnectionFactory.ConnectionSettings">
+            <summary>
+            Gets the connection settings.
+            </summary>
+        </member>
         <member name="M:MongoDB.Driver.Core.Connections.IConnectionFactory.CreateConnection(MongoDB.Driver.Core.Servers.ServerId,System.Net.EndPoint)">
             <summary>
             Creates the connection.
@@ -6878,7 +6950,7 @@
         </member>
         <member name="T:MongoDB.Driver.Core.Events.ConnectionCreatedEvent">
             <summary>
-            Occurs when a connection is created..
+            Occurs when a connection is created.
             </summary>
         </member>
         <member name="M:MongoDB.Driver.Core.Events.ConnectionCreatedEvent.#ctor(MongoDB.Driver.Core.Connections.ConnectionId,MongoDB.Driver.Core.Configuration.ConnectionSettings,System.Nullable{System.Int64})">
@@ -7300,7 +7372,7 @@
         </member>
         <member name="T:MongoDB.Driver.Core.Events.ConnectionPoolCheckingOutConnectionEvent">
             <summary>
-            Occurs before a connection is checking out of the pool.
+            Occurs before a connection is checked out of the pool.
             </summary>
         </member>
         <member name="M:MongoDB.Driver.Core.Events.ConnectionPoolCheckingOutConnectionEvent.#ctor(MongoDB.Driver.Core.Servers.ServerId,System.Nullable{System.Int64})">
@@ -8096,20 +8168,22 @@
         </member>
         <member name="T:MongoDB.Driver.Core.Events.SdamInformationEvent">
             <summary>
-            An informational event used for logging Server Discovery and Monitoring (SDAM) events. 
+            An informational event used for logging Server Discovery and Monitoring (SDAM) events.
             </summary>
         </member>
-        <member name="M:MongoDB.Driver.Core.Events.SdamInformationEvent.#ctor(System.Func{System.String})">
+        <member name="M:MongoDB.Driver.Core.Events.SdamInformationEvent.#ctor(System.String,System.Object)">
             <summary>
             Initializes a new instance of the <see cref="T:MongoDB.Driver.Core.Events.SdamInformationEvent"/> struct.
             </summary>
-            <param name="createMessage">Function that creates the message to log.</param>
+            <param name="messageFormat">Message format.</param>
+            <param name="arg0">Message argument.</param>
         </member>
-        <member name="M:MongoDB.Driver.Core.Events.SdamInformationEvent.#ctor(System.Lazy{System.String})">
+        <member name="M:MongoDB.Driver.Core.Events.SdamInformationEvent.#ctor(System.String,System.Object[])">
             <summary>
             Initializes a new instance of the <see cref="T:MongoDB.Driver.Core.Events.SdamInformationEvent"/> struct.
             </summary>
-            <param name="message">The message to log.</param>
+            <param name="messageFormat">Message format.</param>
+            <param name="args">Message arguments.</param>
         </member>
         <member name="P:MongoDB.Driver.Core.Events.SdamInformationEvent.Message">
             <summary>
@@ -8264,7 +8338,7 @@
         </member>
         <member name="T:MongoDB.Driver.Core.Events.ServerHeartbeatStartedEvent">
             <summary>
-            Occurs when a heartbeat succeeded.
+            Occurs before heartbeat is issued.
             </summary>
         </member>
         <member name="M:MongoDB.Driver.Core.Events.ServerHeartbeatStartedEvent.#ctor(MongoDB.Driver.Core.Connections.ConnectionId,System.Boolean)">
@@ -8301,7 +8375,7 @@
         </member>
         <member name="T:MongoDB.Driver.Core.Events.ServerHeartbeatSucceededEvent">
             <summary>
-            Occurs before heartbeat is issued.
+            Occurs when a heartbeat succeeded.
             </summary>
         </member>
         <member name="M:MongoDB.Driver.Core.Events.ServerHeartbeatSucceededEvent.#ctor(MongoDB.Driver.Core.Connections.ConnectionId,System.TimeSpan,System.Boolean)">
@@ -9117,6 +9191,11 @@
             Gets the aggregate $densify stage feature.
             </summary>
         </member>
+        <member name="P:MongoDB.Driver.Core.Misc.Feature.DocumentsStage">
+            <summary>
+            Gets the documents stage feature.
+            </summary>
+        </member>
         <member name="P:MongoDB.Driver.Core.Misc.Feature.DocumentValidation">
             <summary>
             Gets the document validation feature.
@@ -9405,6 +9484,11 @@
         <member name="P:MongoDB.Driver.Core.Misc.Feature.UserManagementCommands">
             <summary>
             Gets the user management commands feature.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Core.Misc.Feature.UpdateWithAggregationPipeline">
+            <summary>
+            Gets the update with aggregation pipeline feature.
             </summary>
         </member>
         <member name="P:MongoDB.Driver.Core.Misc.Feature.Views">
@@ -10050,6 +10134,11 @@
         <member name="F:MongoDB.Driver.Core.Misc.WireVersion.Server60">
             <summary>
             Wire version 17.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Core.Misc.WireVersion.Server61">
+            <summary>
+            Wire version 18.
             </summary>
         </member>
         <member name="T:MongoDB.Driver.Core.Operations.AggregateExplainOperation">

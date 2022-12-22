@@ -293,6 +293,23 @@
         <member name="M:MongoDB.Driver.ExpressionAggregateExpressionDefinition`2.Render(MongoDB.Bson.Serialization.IBsonSerializer{`0},MongoDB.Bson.Serialization.IBsonSerializerRegistry,MongoDB.Driver.Linq.LinqProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:MongoDB.Driver.DocumentsAggregateExpressionDefinition`1">
+            <summary>
+            An aggregate expression for the $documents stage.
+            </summary>
+            <typeparam name="TDocument">The type of the documents.</typeparam>
+            <seealso cref="T:MongoDB.Driver.AggregateExpressionDefinition`2" />
+        </member>
+        <member name="M:MongoDB.Driver.DocumentsAggregateExpressionDefinition`1.#ctor(System.Collections.Generic.IEnumerable{`0},MongoDB.Bson.Serialization.IBsonSerializer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.ExpressionAggregateExpressionDefinition`2" /> class.
+            </summary>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
+        </member>
+        <member name="M:MongoDB.Driver.DocumentsAggregateExpressionDefinition`1.Render(MongoDB.Bson.Serialization.IBsonSerializer{MongoDB.Driver.NoPipelineInput},MongoDB.Bson.Serialization.IBsonSerializerRegistry,MongoDB.Driver.Linq.LinqProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:MongoDB.Driver.AggregateFacet">
             <summary>
             Represents static methods for creating facets.
@@ -7377,6 +7394,26 @@
             <returns>
             The fluent aggregate interface.
             </returns>
+        </member>
+        <member name="M:MongoDB.Driver.IAggregateFluentExtensions.Documents``1(MongoDB.Driver.IAggregateFluent{MongoDB.Driver.NoPipelineInput},MongoDB.Driver.AggregateExpressionDefinition{MongoDB.Driver.NoPipelineInput,System.Collections.Generic.IEnumerable{``0}},MongoDB.Bson.Serialization.IBsonSerializer{``0})">
+            <summary>
+            Appends a $documents stage to the pipeline.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
+            <returns>The fluent aggregate interface.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.IAggregateFluentExtensions.Documents``1(MongoDB.Driver.IAggregateFluent{MongoDB.Driver.NoPipelineInput},System.Collections.Generic.IEnumerable{``0},MongoDB.Bson.Serialization.IBsonSerializer{``0})">
+            <summary>
+            Appends a $documents stage to the pipeline.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="aggregate">The aggregate.</param>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
+            <returns>The fluent aggregate interface.</returns>
         </member>
         <member name="M:MongoDB.Driver.IAggregateFluentExtensions.Facet``1(MongoDB.Driver.IAggregateFluent{``0},System.Collections.Generic.IEnumerable{MongoDB.Driver.AggregateFacet{``0}})">
             <summary>
@@ -17640,6 +17677,11 @@
             Gets or sets the local threshold.
             </summary>
         </member>
+        <member name="P:MongoDB.Driver.MongoClientSettings.LoggingSettings">
+            <summary>
+            Gets or sets the logging settings
+            </summary>
+        </member>
         <member name="P:MongoDB.Driver.MongoClientSettings.MaxConnecting">
             <summary>
             Gets or sets the maximum concurrently connecting connections.
@@ -20628,6 +20670,30 @@
             A new pipeline with an additional stage.
             </returns>
         </member>
+        <member name="M:MongoDB.Driver.PipelineDefinitionBuilder.Documents``1(MongoDB.Driver.PipelineDefinition{MongoDB.Driver.NoPipelineInput,MongoDB.Driver.NoPipelineInput},MongoDB.Driver.AggregateExpressionDefinition{MongoDB.Driver.NoPipelineInput,System.Collections.Generic.IEnumerable{``0}},MongoDB.Bson.Serialization.IBsonSerializer{``0})">
+            <summary>
+            Appends a $documents stage to the pipeline.
+            </summary>
+            <typeparam name="TDocument">The type of the documents.</typeparam>
+            <param name="pipeline">The pipeline.</param>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
+            <returns>
+            A new pipeline with an additional stage.
+            </returns>
+        </member>
+        <member name="M:MongoDB.Driver.PipelineDefinitionBuilder.Documents``1(MongoDB.Driver.PipelineDefinition{MongoDB.Driver.NoPipelineInput,MongoDB.Driver.NoPipelineInput},System.Collections.Generic.IEnumerable{``0},MongoDB.Bson.Serialization.IBsonSerializer{``0})">
+            <summary>
+            Appends a $documents stage to the pipeline.
+            </summary>
+            <typeparam name="TDocument">The type of the documents.</typeparam>
+            <param name="pipeline">The pipeline.</param>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
+            <returns>
+            A new pipeline with an additional stage.
+            </returns>
+        </member>
         <member name="M:MongoDB.Driver.PipelineDefinitionBuilder.Facet``3(MongoDB.Driver.PipelineDefinition{``0,``1},System.Collections.Generic.IEnumerable{MongoDB.Driver.AggregateFacet{``1}},MongoDB.Driver.AggregateFacetOptions{``2})">
             <summary>
             Appends a $facet stage to the pipeline.
@@ -21793,6 +21859,24 @@
             <param name="field">The field.</param>
             <param name="range">The range.</param>
             <param name="partitionByFields">The partition by fields.</param>
+            <returns>The stage.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.PipelineStageDefinitionBuilder.Documents``1(MongoDB.Driver.AggregateExpressionDefinition{MongoDB.Driver.NoPipelineInput,System.Collections.Generic.IEnumerable{``0}},MongoDB.Bson.Serialization.IBsonSerializer{``0})">
+            <summary>
+            Creates a $documents stage.
+            </summary>
+            <typeparam name="TDocument">The type of the documents.</typeparam>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
+            <returns>The stage.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.PipelineStageDefinitionBuilder.Documents``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Bson.Serialization.IBsonSerializer{``0})">
+            <summary>
+            Creates a $documents stage.
+            </summary>
+            <typeparam name="TDocument">The type of the documents.</typeparam>
+            <param name="documents">The documents.</param>
+            <param name="documentSerializer">The document serializer.</param>
             <returns>The stage.</returns>
         </member>
         <member name="M:MongoDB.Driver.PipelineStageDefinitionBuilder.Facet``2(System.Collections.Generic.IEnumerable{MongoDB.Driver.AggregateFacet{``0}},MongoDB.Driver.AggregateFacetOptions{``1})">
@@ -23818,6 +23902,11 @@
             Initializes a new instance of the <see cref="T:MongoDB.Driver.PipelineUpdateDefinition`1"/> class.
             </summary>
             <param name="pipeline">The pipeline.</param>
+        </member>
+        <member name="P:MongoDB.Driver.PipelineUpdateDefinition`1.Pipeline">
+            <summary>
+            Gets the pipeline.
+            </summary>
         </member>
         <member name="M:MongoDB.Driver.PipelineUpdateDefinition`1.Render(MongoDB.Bson.Serialization.IBsonSerializer{`0},MongoDB.Bson.Serialization.IBsonSerializerRegistry,MongoDB.Driver.Linq.LinqProvider)">
             <summary>

@@ -6,7 +6,6 @@ using Do_an_nganh_QuanLiOrderMonAn.Class;
 using RestSharp;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
@@ -14,24 +13,31 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     class CSDL
     {
         string[] collectionwithBlock = { "Order" };
-        CSDL()
-        {
-
-        }
+        CSDL(){}
 
         public static CSDL instance = new CSDL();
 
-
-        HttpClient httpClient = new HttpClient();
-
-        public async Task<string> Rest(string collection, string route, string cmd)
+        public async Task<string> RestRequest(string route, string body) //dung cho endpoint custom
+        {
+            var client = new RestClient(apiinfo.Url + route);
+            var request = new RestRequest();
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Access-Control-Request-Headers", "*");
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("api-key", apiinfo.Key);
+            request.AddStringBody(body, DataFormat.Json);
+            RestResponse response = await client.PostAsync(request);
+            MessageBox.Show(response.Content.ToString());
+            return response.Content.ToString();
+        }
+        public async Task<string> SendToMongoAPI(string collection, string route, string cmd)
         {
             var body = @"{" + "\n" +
-            @" ""collection"":""" + collection + @"""," + "\n" +
+             @" ""dataSource"":""" + apiinfo.Cluster + @"""," + "\n" +
             @" ""database"":""" + apiinfo.Database + @"""," + "\n" +
-            @" ""dataSource"":""" + apiinfo.Cluster + @"""," + "\n" +
+            @" ""collection"":""" + collection + @"""," + "\n" +
             cmd + "\n" +
-            @"" + "\n" +
+            @"" +
             @"}";
 
             return await RestRequest(route, body);
@@ -43,23 +49,35 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
         public async Task<List<T>> Query<T>(string CollectionName, string filter = "", string id = "")
         {
+            //tim theo ID tu danh sach da dc loc qua filter
+            if (id != "" && (!filter.Contains("id")))
+            {
+                if (filter != "")
+                {
+                    filter += ",\"id\":\"" + id + "\"";
+                }
+                else
+                {
+                    filter += "\"id\":\"" + id + "\"";
+                }
+            }
+
+            // tim tat ca  theo dieu kien
             string res;
             if (collectionwithBlock.Contains(CollectionName))
             {
-                id = "\"id\":\"" + id + "\"";
-                res = await Rest(CollectionName, "find", id);//ch xong
+                res = await SendToMongoAPI(CollectionName, "find", " \"filter\":{" + filter + "}");//ch xong
             }
             else
             {
-
-                res = await Rest(CollectionName, "data/v1/find", " \"filter\"  :{" + filter + "}");
+                res = await SendToMongoAPI(CollectionName, "data/v1/action/find", " \"filter\":{" + filter + "}");
             }
             string s = code.documentToJsonarray(res);
             return JsonConvert.DeserializeObject<List<T>>(s);
         }
 
         #region insert
-        public async void Insert<T>(string CollectionName, T value) where T : Block
+        public async void Insert<T>(string CollectionName, T value)
         {
             if (collectionwithBlock.Contains(CollectionName))
             {
@@ -67,22 +85,33 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             else
             {
-                await Rest(CollectionName, "data/v1/insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
+                await SendToMongoAPI(CollectionName, "data/v1/action/insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
             }
-
         }
         public async void Insert<T>(string CollectionName, List<T> values)
         {
-            await Rest(CollectionName, "insertMany", "\"document\":" + JsonConvert.SerializeObject(values));
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+                for (int i = 0, length = values.Count; i < length; i++)
+                {
+                    addBlock(CollectionName, JsonConvert.SerializeObject(values[i]));
+                }
+
+            }
+            else
+            {
+                await SendToMongoAPI(CollectionName, "data/v1/action/insertMany", "\"document\":" + JsonConvert.SerializeObject(values));
+            }
+
         }
         #endregion
         #region update
-        public void UpdateOne<T>(string CollectionName, T value)where T:Block
+        public void UpdateOne<T>(string CollectionName, T value) where T : Block
         {
             if (collectionwithBlock.Contains(CollectionName))
             {
                 string id = "\"id\":\"" + value.id + "\"";
-                addBlock(CollectionName, JsonConvert.SerializeObject(value),id);
+                addBlock(CollectionName, JsonConvert.SerializeObject(value), id);
             }
             else
             {
@@ -96,10 +125,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 string id;
                 foreach (var x in value)
                 {
-                    id= "\"id\":\"" + x.id + "\"";
-                    addBlock(CollectionName, JsonConvert.SerializeObject(x),id);
+                    id = "\"id\":\"" + x.id + "\"";
+                    addBlock(CollectionName, JsonConvert.SerializeObject(x), id);
                 }
-                
+
             }
             else
             {
@@ -109,6 +138,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
         public async void UpdateOne(string CollectionName, string search, string name, string setpropertie, string value)
         {
+            if (collectionwithBlock.Contains(CollectionName))
+            {
+                return;
+            }
             if (name != null)
             {
                 string update;
@@ -124,7 +157,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
                 string filter = "\"filter\":{\"" + search + "\":\"" + name + "\"}";
                 string cmd = filter + "," + update;
-                await Rest(CollectionName, "updateOne", cmd);
+                await SendToMongoAPI(CollectionName, "data/v1/action/updateOne", cmd);
 
             }
         }
@@ -144,7 +177,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 }
                 string filter = "\"filter\":{" + filt + "}";
                 string cmd = filter + "," + update;
-                string res = await Rest(CollectionName, "updateMany", cmd);
+                string res = await SendToMongoAPI(CollectionName, "data/v1/action/updateMany", cmd);
                 return code.ResupdateToIntRowsImpact(res);
             }
             return 0;
@@ -156,7 +189,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             string res;
             if (collectionwithBlock.Contains(CollectionName))
             {
-                res = await Rest(CollectionName, "deleteBlock", "");
+                res = await SendToMongoAPI(CollectionName, "deleteBlock", "");
             }
             else
             {
@@ -164,11 +197,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 {
                     string filter = "\"filter\":{" + filt + "}";
                     string cmd = filter;
-                    res = await Rest(CollectionName, "deleteMany", cmd);
+                    res = await SendToMongoAPI(CollectionName, "data/v1/action/deleteMany", cmd);
                     return code.ResupdateToIntRowsImpact(res);
                 }
             }
-           
+
             return 0;
         }
         public async void RemoveOne(string CollectionName, string filt = "")
@@ -176,7 +209,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             string res;
             if (collectionwithBlock.Contains(CollectionName))
             {
-                res = await Rest(CollectionName, "deleteBlock", "");//ch xong
+                res = await SendToMongoAPI(CollectionName, "deleteBlock", "");//ch xong
             }
             else
             {
@@ -184,17 +217,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 {
                     string filter = "\"filter\":{" + filt + "}";
                     string cmd = filter;
-                    await Rest(CollectionName, "deleteOne", cmd);
+                    await SendToMongoAPI(CollectionName, "data/v1/action/deleteOne", cmd);
                 }
             }
-           
+
         }
-        public async void RemoveOne<T>(string CollectionName,T value)where T:Block
+        public async void RemoveOne<T>(string CollectionName, T value) where T : Block
         {
             string res;
             if (collectionwithBlock.Contains(CollectionName))
             {
-                res = await Rest(CollectionName, "deleteBlock", "\"id\":\"" + value.id + "\"");//ch xong
+                res = await SendToMongoAPI(CollectionName, "deleteBlock", "\"id\":\"" + value.id + "\"");//ch xong
             }
             else
             {
@@ -205,18 +238,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
         #endregion
         #region Block
-        public async Task<string> RestRequest(string route, string body) //dung cho endpoint custom
-        {
-            var client = new RestClient(apiinfo.Url + route);
-            var request = new RestRequest();
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Access-Control-Request-Headers", "*");
-            request.AddHeader("api-key", apiinfo.Key);
-            request.AddStringBody(body, DataFormat.Json);
-            RestResponse response = await client.PostAsync(request);
-            MessageBox.Show(response.Content.ToString());
-            return response.Content.ToString();
-        }
+       
         public void addBlock(string collection, string bodydoc, string id = "")
         {
             if (id != "")
@@ -230,9 +252,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
             string res = RestRequest(apiinfo.Url + "addBlock", body).Result;
         }
-        public  T findBlock<T>(string collection, string id,int go)
+        public T findBlock<T>(string collection, string id, int go)
         {
-            string res =Rest(collection, "findBlock", "").Result;
+            string res = SendToMongoAPI(collection, "findBlock", "").Result;
             return JsonConvert.DeserializeObject<T>(res);
         }
         #endregion
