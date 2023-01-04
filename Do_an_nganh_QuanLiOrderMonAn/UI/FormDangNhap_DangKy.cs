@@ -21,7 +21,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                     == DialogResult.Yes)
                 {
                     
-                    QLTaiKhoan.instance.LogIn(acc.Username, acc.Password, acc.IsAdmin);
+                    QLTaiKhoan.instance.LogIn(acc.AccountName, acc.Password, acc.IsAdmin);
                 }
                 
             }

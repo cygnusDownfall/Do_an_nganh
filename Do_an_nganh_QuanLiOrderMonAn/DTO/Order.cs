@@ -8,29 +8,21 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     public class Order:Block
     {
         public string TenMonAn;
-        public string NguoiPhucVu;
+        public string MaNhanVien;
 
         public int SoLuong;
 
-        public DateTime NgayTao;
         public int Ban;
 
-        public Order()
+        public string MaHoaDon;
+        public Order() { }
+        public Order(string tenMonAn, string maNhanVien, int soLuong, int ban, string maHoaDon)
         {
-            SoLuong = 1;
-            NgayTao = DateTime.Now;
+            TenMonAn = tenMonAn;
+            MaNhanVien = maNhanVien;
+            SoLuong = soLuong;
+            Ban = ban;
+            MaHoaDon = maHoaDon;
         }
-        public Order( DateTime ngaytao)
-        {
-            SoLuong = 1;
-            NgayTao = ngaytao;
-        }
-        public Order(string id,string tenmonan,int sl, DateTime ngaytao)
-        {
-            this.id= id;
-            SoLuong = sl;
-            NgayTao = ngaytao;
-        }
-       
     }
 }

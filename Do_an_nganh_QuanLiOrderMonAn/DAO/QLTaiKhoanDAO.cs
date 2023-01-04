@@ -1,27 +1,30 @@
 ﻿using System.Collections.Generic;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
 using Do_an_nganh_QuanLiOrderMonAn.UI;
+using Newtonsoft.Json;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLTaiKhoanDAO
     {
         public static QLTaiKhoanDAO QLTaiKhoan = new QLTaiKhoanDAO();
+        public Account current;
         QLTaiKhoanDAO()
         {
 
         }
 
-        public List<string> tentaikhoans  // hien thi danh sach tai khoan
+        public List<string> tentaikhoans  
         {
             get
             {
                 return null;
             }
         }
-        public void ThemTaiKhoan(string name, string pass) //admin tao them tai khoan cho nhan vien
+        public void ThemTaiKhoan(string name, string pass,bool isadmin,string username) //admin tao them tai khoan cho nhan vien
         {
-           
+            string objjson = JsonConvert.SerializeObject(new Account(name,username,pass,isadmin));
+            CSDL.instance.addBlock("Account",objjson);
         }
 
         public void XoaTaiKhoanHienTai()
@@ -30,17 +33,18 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         }
 
         //..........................................
-        public bool LogIn(string username, string pass, bool isadmin)
+        public bool LogIn(string accname, string pass, bool isadmin)
         {
             // neu log in thanh cong goi form main else bao loi 
-            if (Account.LoadAccount(username, pass, isadmin))
+            if (Account.LoadAccount(accname, pass, isadmin))
             {
                 //cap nhat trang thai online
 
-                //CSDL.instance.Update("Acccount", Account.instance.Username, "online", true);
+                CSDL.instance.UpdateOne("Account","AccountName", accname, "online", "true");
+                //
 
 
-                if (Account.instance.IsAdmin)
+                if (isadmin)
                 {
                     ADMINFORM a = new ADMINFORM();
                     a.ShowDialog();
@@ -60,8 +64,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         public void LogOut()
         {
             //cap nhat trang thai online
-            //CSDL.instance.Update("Acccount", Account.instance.Username, "online", false);
+            CSDL.instance.UpdateOne("Account","AccountName",current.AccountName, "online", "false");
 
+        }
+        public void changePass(string newpass)
+        {
+            CSDL.instance.UpdateOne("Account", "AccountName", current.AccountName, "Password", newpass);
+            System.Windows.Forms.MessageBox.Show("Doi mat khau thanh cong !");
         }
     }
 }

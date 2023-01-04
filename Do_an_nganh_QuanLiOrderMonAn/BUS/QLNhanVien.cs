@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.BUS
 {
-    public class NhanVienBUS
+    public class QLNhanVien
     {
-        NhanVienBUS() { }
-        public static NhanVienBUS instance = new NhanVienBUS();
+        QLNhanVien() { }
+        public static QLNhanVien instance = new QLNhanVien();
 
         public void ThemNhanVien(DTO.NhanVien nv)
         {

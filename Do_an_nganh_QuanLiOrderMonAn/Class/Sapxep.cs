@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace _020101125
+namespace Do_an_nganh_QuanLiOrderMonAn.Class
 {
     public class Sapxep
     {

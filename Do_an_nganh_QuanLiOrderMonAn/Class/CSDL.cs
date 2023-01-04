@@ -1,19 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
+//using System.Net.Http;
 using Newtonsoft.Json;
 using Do_an_nganh_QuanLiOrderMonAn.Class;
 using RestSharp;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Linq;
+using System.ComponentModel;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
-    class CSDL
+    public class CSDL
     {
         string[] collectionwithBlock = { "Order" };
-        CSDL(){}
+        CSDL() { }
 
         public static CSDL instance = new CSDL();
 
@@ -30,12 +31,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             MessageBox.Show(response.Content.ToString());
             return response.Content.ToString();
         }
-        public async Task<string> SendToMongoAPI(string collection, string route, string cmd)
+        public async Task<string> SendToMongoAPI(string CollectionName, string route, string cmd)
         {
             var body = @"{" + "\n" +
              @" ""dataSource"":""" + apiinfo.Cluster + @"""," + "\n" +
             @" ""database"":""" + apiinfo.Database + @"""," + "\n" +
-            @" ""collection"":""" + collection + @"""," + "\n" +
+            @" ""collection"":""" + CollectionName + @"""," + "\n" +
             cmd + "\n" +
             @"" +
             @"}";
@@ -136,13 +137,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
 
         }
-        public async void UpdateOne(string CollectionName, string search, string name, string setpropertie, string value)
+        public async void UpdateOne(string CollectionName, string search, string searchvalue, string setpropertie, string value)
         {
             if (collectionwithBlock.Contains(CollectionName))
             {
                 return;
             }
-            if (name != null)
+            if (searchvalue != null)
             {
                 string update;
                 try
@@ -155,13 +156,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                     update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": \"" + value + "\" }}";
                 }
 
-                string filter = "\"filter\":{\"" + search + "\":\"" + name + "\"}";
+                string filter = "\"filter\":{\"" + search + "\":\"" + searchvalue + "\"}";
                 string cmd = filter + "," + update;
                 await SendToMongoAPI(CollectionName, "data/v1/action/updateOne", cmd);
 
             }
         }
-        public async Task<int> UpdateMany(string CollectionName, string filt, string setpropertie, string value)
+        public async Task<int> UpdateMany(string CollectionName, string filter, string setpropertie, string value)
         {
             if (value != null)
             {
@@ -175,7 +176,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
                 {
                     update = "\"update\" : { \"$set\" : { \"" + setpropertie + "\": \"" + value + "\" }}";
                 }
-                string filter = "\"filter\":{" + filt + "}";
+                filter = "\"filter\":{" + filter + "}";
                 string cmd = filter + "," + update;
                 string res = await SendToMongoAPI(CollectionName, "data/v1/action/updateMany", cmd);
                 return code.ResupdateToIntRowsImpact(res);
@@ -184,7 +185,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
         #endregion
         #region remove
-        public async Task<int> RemoveAll(string CollectionName, string filt = "")
+        public async Task<int> RemoveAll(string CollectionName, string filter = "")
         {
             string res;
             if (collectionwithBlock.Contains(CollectionName))
@@ -193,9 +194,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             else
             {
-                if (filt != null)
+                if (filter != null)
                 {
-                    string filter = "\"filter\":{" + filt + "}";
+                    filter = "\"filter\":{" + filter + "}";
                     string cmd = filter;
                     res = await SendToMongoAPI(CollectionName, "data/v1/action/deleteMany", cmd);
                     return code.ResupdateToIntRowsImpact(res);
@@ -204,23 +205,27 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
             return 0;
         }
-        public async void RemoveOne(string CollectionName, string filt = "")
+        public async Task<bool> RemoveOne(string CollectionName, string filter = "")
         {
-            string res;
+            string res="";
             if (collectionwithBlock.Contains(CollectionName))
             {
                 res = await SendToMongoAPI(CollectionName, "deleteBlock", "");//ch xong
             }
             else
             {
-                if (filt != null)
+                if (filter != null)
                 {
-                    string filter = "\"filter\":{" + filt + "}";
+                    filter = "\"filter\":{" + filter + "}";
                     string cmd = filter;
-                    await SendToMongoAPI(CollectionName, "data/v1/action/deleteOne", cmd);
+                    res = await SendToMongoAPI(CollectionName, "data/v1/action/deleteOne", cmd);
                 }
             }
-
+            if (code.ResupdateToIntRowsImpact(res)==0)
+            {
+                return false;
+            }
+            return true;
         }
         public async void RemoveOne<T>(string CollectionName, T value) where T : Block
         {
@@ -238,7 +243,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
         #endregion
         #region Block
-       
+
         public void addBlock(string collection, string bodydoc, string id = "")
         {
             if (id != "")
