@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
     [Serializable]
-    internal class Menu
+    public class Menu
     {
         public string TenMenu;
         public List<MonAn> DanhSachMonAn;

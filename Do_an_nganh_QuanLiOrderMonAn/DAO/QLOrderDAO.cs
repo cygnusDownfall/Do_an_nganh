@@ -17,25 +17,26 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                 return CSDL.instance.Query<Order>("Order").Result;
             }
         }
-     
-        public List<string> danhsachtheoban
+
+
+        public List<Order> Timkiem(string properties, string value)
         {
-            get
-            {
-                return null;
-            }
+            string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
+            return CSDL.instance.Query<Order>("Order", filter).Result;
         }
-        public List<Order> TimOrder(MongoDB.Driver.FilterDefinition<MongoDB.Bson.BsonDocument> filter)
+        public void Them(string tenMonAn, string maNhanVien, int soLuong, int ban, string maHoaDon) // ch 
         {
-            return null;
+            Order m = new Order(tenMonAn,maNhanVien,soLuong,ban,maHoaDon);
+            CSDL.instance.Insert<Order>("Order", m);
         }
-        public void SuaThongTinOrder(string tenorder, string thuoctinh, string value)
+        public void CapNhat(Order newvalue)
         {
-           
+            CSDL.instance.UpdateOne<Order>("Order",newvalue);
         }
-        public void XoaOrder(string tenOrder)
+        public bool Xoa(Order value)
         {
-          
+            return CSDL.instance.RemoveOne<Order>("Order", value).Result;
         }
+
     }
 }

@@ -11,11 +11,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
     {
         public string _id;
         public string TenNhanVien;
-        public string NgaySinh;
+        public DateTime NgaySinh;
         public string DiaChi;
         public string SoDienThoai;
         public NhanVien() { }
-        public NhanVien(string id, string tenNhanVien, string ngaySinh, string diaChi, string dienThoai)
+        public NhanVien(string id, string tenNhanVien, DateTime ngaySinh, string diaChi, string dienThoai)
         {
             _id = id;
             TenNhanVien = tenNhanVien;

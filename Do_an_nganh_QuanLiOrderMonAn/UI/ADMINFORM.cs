@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using MongoDB.Driver;
 using System.Web;
+using Do_an_nganh_QuanLiOrderMonAn.DAO;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.UI
 {
@@ -20,7 +21,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
         {
             QLTaiKhoan.instance.LogOut();
-            savesystem.save(DTO.Account.instance);
+            savesystem.save(QLTaiKhoanDAO.QLTaiKhoan.current);
             Application.Exit();
         }
         private void adminpanel_Click(object sender, EventArgs e)
@@ -110,8 +111,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
             for (int i = 0, n = orderS.Count; i < n; i++)
             {
                 order.Items.Add(orderS[i].TenMonAn);
-                order.Items[i].SubItems.Add(orderS[i].NguoiPhucVu);
-                order.Items[i].SubItems.Add(orderS[i].NgayTao.ToShortTimeString());
+                order.Items[i].SubItems.Add(orderS[i].MaNhanVien);
+               
                 order.Items[i].SubItems.Add(orderS[i].Ban.ToString());
             }
 
@@ -139,12 +140,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
                     }
                 case 2:
                     {
-                        kq = DAO.QLNhanVienDAO.instance.danhsachnhanvien;
+                        //kq = QLNhanVienDAO.instance.DanhSachNhanVien;
                         break;
                     }
                 case 3:
                     {
-                        kq = QLOder.danhsachngay;
+                        //kq = QLOder.danhsachngay;
                         break;
                     }
                 case 4:

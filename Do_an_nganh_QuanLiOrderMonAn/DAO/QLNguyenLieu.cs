@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
-    internal class QLNguyenLieu
+    public class QLNguyenLieu
     {
         public async Task<List<NguyenLieu>> TatCaNguyenLieu()
         {
@@ -27,10 +27,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         {
             CSDL.instance.UpdateOne("NguyenLieu", search, searchvalue, propertie, value);
         }
-        public bool XoaMonAn(string tenmon)
+        public bool XoaMonAn(string tennguyenlieu)
         {
-            string filter = "\"TenMonAn\":\"" + tenmon + "\"";
-            return CSDL.instance.RemoveOne("MonAn", filter).Result;
+            string filter = "\"TenNguyenLieu\":\"" + tennguyenlieu + "\"";
+            return CSDL.instance.RemoveOne("NguyenLieu", filter).Result;
         }
     }
 }

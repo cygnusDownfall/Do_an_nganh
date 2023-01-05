@@ -37,7 +37,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia,mota);
+                QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia,null,mota);
                 MessageBox.Show("Da them mon an thanh cong !");
             }
             catch (Exception e)

@@ -15,7 +15,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                DAO.QLNhanVienDAO.instance.ThemNhanVien(nv);
+                DAO.QLNhanVienDAO.instance.Them(nv);
             }
             catch
             {
@@ -26,7 +26,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                DAO.QLNhanVienDAO.instance.ThemNhanVien(nv);
+                DAO.QLNhanVienDAO.instance.Them(nv);
             }
             catch
             {
@@ -37,7 +37,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                DAO.QLNhanVienDAO.instance.ThemNhanVien(nv);
+                DAO.QLNhanVienDAO.instance.Them(nv);
             }
             catch
             {

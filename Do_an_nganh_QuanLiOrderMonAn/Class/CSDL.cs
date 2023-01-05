@@ -78,8 +78,9 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         }
 
         #region insert
-        public async void Insert<T>(string CollectionName, T value)
+        public async Task<bool> Insert<T>(string CollectionName, T value)
         {
+            string res = "";
             if (collectionwithBlock.Contains(CollectionName))
             {
                 addBlock(CollectionName, JsonConvert.SerializeObject(value));
@@ -88,6 +89,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             {
                 await SendToMongoAPI(CollectionName, "data/v1/action/insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
             }
+            if (res == "") return false;
+            return true;
         }
         public async void Insert<T>(string CollectionName, List<T> values)
         {
@@ -227,16 +230,19 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             return true;
         }
-        public async void RemoveOne<T>(string CollectionName, T value) where T : Block
+        public async Task<bool> RemoveOne<T>(string CollectionName, T value) where T : Block
         {
             string res;
             if (collectionwithBlock.Contains(CollectionName))
             {
-                res = await SendToMongoAPI(CollectionName, "deleteBlock", "\"id\":\"" + value.id + "\"");//ch xong
+                res = await SendToMongoAPI(CollectionName, "deleteBlock", "\"id\":\"" + value.id + "\"");
+                if (res.Length == 0) { return false; }
+                return true;
             }
             else
             {
                 MessageBox.Show("dung sai ham r cha");
+                return false;
             }
         }
         #endregion

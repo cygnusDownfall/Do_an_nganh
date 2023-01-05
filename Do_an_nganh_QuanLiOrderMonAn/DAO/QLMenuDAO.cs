@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
-    internal class QLMenuDAO
+    public class QLMenuDAO
     {
         public static QLMenuDAO instance=new QLMenuDAO();
         QLMenuDAO() { }
@@ -32,7 +32,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         public bool Xoa(string ten)
         {
             string filter = "\"TenMenu\":\"" + ten + "\"";
-            return CSDL.instance.RemoveOne("MonAn", filter).Result;
+            return CSDL.instance.RemoveOne("Menu", filter).Result;
         }
 
     }

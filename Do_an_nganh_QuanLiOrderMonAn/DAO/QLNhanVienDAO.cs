@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
-     class QLNhanVienDAO
+    public class QLNhanVienDAO
     {
         QLNhanVienDAO()
         {
@@ -22,18 +22,17 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<NhanVien>("NhanVien", filter).Result;
         }
-        public void Them(int thu, int tuan, int ca, string maNhanVien) // ch 
+        public bool Them(NhanVien nv) // ch 
         {
-            LichLam m = new LichLam(thu, tuan, ca, maNhanVien);
-            CSDL.instance.Insert<LichLam>("LichLam", m);
+            return CSDL.instance.Insert<NhanVien>("NhanVien",nv).Result;
         }
         public void CapNhat(string search, string searchvalue, string propertie, string value)
         {
-            CSDL.instance.UpdateOne("LichLam", search, searchvalue, propertie, value);
+            CSDL.instance.UpdateOne("NhanVien", search, searchvalue, propertie, value);
         }
-        public bool Xoa(int thu, int tuan, int ca)
+        public bool Xoa(string manhanvien)
         {
-            string filter = "\"Thu\":\"" + thu + "\"" + ",\"Tuan\":\"" + tuan + "\"" + "\"Ca\":\"" + ca + "\"";
+            string filter = "\"_id\":\"" + manhanvien + "\"";
             return CSDL.instance.RemoveOne("LichLam", filter).Result;
         }
 

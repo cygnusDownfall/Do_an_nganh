@@ -21,15 +21,24 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
                 return null;
             }
         }
-        public void ThemTaiKhoan(string name, string pass,bool isadmin,string username) //admin tao them tai khoan cho nhan vien
+        public List<Account> Timkiem(string properties, string value)
         {
-            string objjson = JsonConvert.SerializeObject(new Account(name,username,pass,isadmin));
-            CSDL.instance.addBlock("Account",objjson);
+            string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
+            return CSDL.instance.Query<Account>("Account", filter).Result;
         }
-
-        public void XoaTaiKhoanHienTai()
+        public void Them(string acc, string user, string pass, bool admin = false) // ch 
         {
-          
+            Account m=new Account(acc, user, pass, admin);
+            CSDL.instance.Insert<Account>("Account", m);
+        }
+        public void CapNhat(string search, string searchvalue, string propertie, string value)
+        {
+            CSDL.instance.UpdateOne("Account", search, searchvalue, propertie, value);
+        }
+        public bool Xoa(string tentaikhoan)
+        {
+            string filter = "\"AccountName\":\"" + tentaikhoan + "\"";
+            return CSDL.instance.RemoveOne("Account", filter).Result;
         }
 
         //..........................................
