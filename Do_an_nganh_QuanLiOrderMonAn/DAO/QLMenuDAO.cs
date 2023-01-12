@@ -1,15 +1,12 @@
 ﻿using Do_an_nganh_QuanLiOrderMonAn.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLMenuDAO
     {
-        public static QLMenuDAO instance=new QLMenuDAO();
+        public static QLMenuDAO instance = new QLMenuDAO();
         QLMenuDAO() { }
         public async Task<List<Menu>> DSMenu()
         {
@@ -20,10 +17,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<Menu>("Menu", filter).Result;
         }
-        public void Them(string tenMenu, List<MonAn> danhSachMonAn, string ghiChu) // ch 
+        public bool Them(string tenMenu, List<MonAn> danhSachMonAn, string ghiChu) // ch 
         {
-            Menu m = new Menu(tenMenu,danhSachMonAn,ghiChu);
-            CSDL.instance.Insert<Menu>("Menu", m);
+            Menu m = new Menu(tenMenu, danhSachMonAn, ghiChu);
+            return CSDL.instance.Insert<Menu>("Menu", m).Result;
         }
         public void CapNhat(string search, string searchvalue, string propertie, string value)
         {

@@ -5,8 +5,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
    public  class Block
     {
-        public string id;
-        public string Hash;
+        public int id { get; set; }
+        public string Hash { get; set; }
         public Block()
         {
 

@@ -175,8 +175,7 @@
     <Compile Include="DAO\QLHoaDonDAO.cs" />
     <Compile Include="DAO\QLLichLamDAO.cs" />
     <Compile Include="DAO\QLMenuDAO.cs" />
-    <Compile Include="DAO\QLNguyenLieu.cs" />
-    <Compile Include="DTO\Block.cs" />
+    <Compile Include="DAO\QLNguyenLieuDAO.cs" />
     <Compile Include="Class\code.cs" />
     <Compile Include="Class\NotifyAdapterSystem.cs" />
     <Compile Include="Class\Sapxep.cs" />
@@ -187,6 +186,7 @@
     <Compile Include="DAO\QLTaiKhoanDAO.cs" />
     <Compile Include="Class\CSDL.cs" />
     <Compile Include="DTO\Account.cs" />
+    <Compile Include="DTO\Block.cs" />
     <Compile Include="DTO\HoaDon.cs" />
     <Compile Include="DTO\LichLam.cs" />
     <Compile Include="DTO\Menu.cs" />

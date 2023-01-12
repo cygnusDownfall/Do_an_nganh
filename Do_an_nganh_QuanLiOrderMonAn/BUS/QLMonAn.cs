@@ -17,13 +17,13 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         public static  QLMonAn instance = new QLMonAn();
         public async Task<List<MonAn>> MenuMonAn()
         {
-            return await QLMonAnDAO.Instance.TatCaMonAn();
+            return await QLMonAnDAO.instance.TatCaMonAn();
         }
         public List<MonAn> TimMonAn(string properties, string value)
         {
             try
             {
-                return QLMonAnDAO.Instance.TimMonAn(properties,value);
+                return QLMonAnDAO.instance.TimMonAn(properties,value);
                 
             }
             catch (Exception e)
@@ -37,7 +37,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                QLMonAnDAO.Instance.ThemMonAn(tenmonan, gia,null,mota);
+                QLMonAnDAO.instance.Them(tenmonan, gia,null,mota);
                 MessageBox.Show("Da them mon an thanh cong !");
             }
             catch (Exception e)
@@ -50,7 +50,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                QLMonAnDAO.Instance.CapNhatMonAn("TenMonAn",tenmonan,thuoctinh,value);
+                QLMonAnDAO.instance.CapNhat("TenMonAn",tenmonan,thuoctinh,value);
                 MessageBox.Show("Da cap nhat mon an thanh cong !");
             }
             catch (Exception e)
@@ -62,7 +62,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                var x=QLMonAnDAO.Instance.XoaMonAn(tenmon);
+                var x=QLMonAnDAO.instance.Xoa(tenmon);
                 MessageBox.Show("Da xoa mon an thanh cong !");
             }
             catch (Exception e)

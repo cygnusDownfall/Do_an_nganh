@@ -13,8 +13,8 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         {
             try
             {
-                return QLTaiKhoanDAO.QLTaiKhoan.LogIn(name, pass, isadmin);
-            }catch(Exception e)
+                return QLTaiKhoanDAO.instance.LogIn(name, pass, isadmin);
+            }catch(Exception)
             {
                 
                 return false;
@@ -24,7 +24,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.BUS
         }
         public void LogOut()
         {
-            QLTaiKhoanDAO.QLTaiKhoan.LogOut();
+            QLTaiKhoanDAO.instance.LogOut();
         }
 
     }

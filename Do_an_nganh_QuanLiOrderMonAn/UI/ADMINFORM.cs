@@ -1,12 +1,8 @@
 ﻿using Do_an_nganh_QuanLiOrderMonAn.BUS;
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
 using System;
-using MongoDB.Bson;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Diagnostics;
-using MongoDB.Driver;
-using System.Web;
 using Do_an_nganh_QuanLiOrderMonAn.DAO;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.UI
@@ -21,7 +17,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.UI
         private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
         {
             QLTaiKhoan.instance.LogOut();
-            savesystem.save(QLTaiKhoanDAO.QLTaiKhoan.current);
+            savesystem.save(QLTaiKhoanDAO.instance.current);
             Application.Exit();
         }
         private void adminpanel_Click(object sender, EventArgs e)

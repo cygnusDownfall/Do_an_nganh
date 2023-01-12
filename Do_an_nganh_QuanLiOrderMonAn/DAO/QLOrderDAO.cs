@@ -24,10 +24,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<Order>("Order", filter).Result;
         }
-        public void Them(string tenMonAn, string maNhanVien, int soLuong, int ban, string maHoaDon) // ch 
+        public bool Them(string tenMonAn, string maNhanVien, int soLuong, int ban, string maHoaDon) // ch 
         {
             Order m = new Order(tenMonAn,maNhanVien,soLuong,ban,maHoaDon);
-            CSDL.instance.Insert<Order>("Order", m);
+            return CSDL.instance.Insert<Order>("Order", m).Result;
         }
         public void CapNhat(Order newvalue)
         {

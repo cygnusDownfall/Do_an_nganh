@@ -7,14 +7,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
     public class QLTaiKhoanDAO
     {
-        public static QLTaiKhoanDAO QLTaiKhoan = new QLTaiKhoanDAO();
+        public static QLTaiKhoanDAO instance = new QLTaiKhoanDAO();
         public Account current;
         QLTaiKhoanDAO()
         {
 
         }
 
-        public List<string> tentaikhoans  
+        public List<string> tentaikhoans
         {
             get
             {
@@ -26,10 +26,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<Account>("Account", filter).Result;
         }
-        public void Them(string acc, string user, string pass, bool admin = false) // ch 
+        public bool Them(string acc, string user, string pass, bool admin = false) // ch 
         {
-            Account m=new Account(acc, user, pass, admin);
-            CSDL.instance.Insert<Account>("Account", m);
+            Account m = new Account(acc, user, pass, admin);
+            return CSDL.instance.Insert<Account>("Account", m).Result;
         }
         public void CapNhat(string search, string searchvalue, string propertie, string value)
         {
@@ -49,7 +49,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             {
                 //cap nhat trang thai online
 
-                CSDL.instance.UpdateOne("Account","AccountName", accname, "online", "true");
+                CSDL.instance.UpdateOne("Account", "AccountName", accname, "online", "true");
                 //
 
 
@@ -73,7 +73,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
         public void LogOut()
         {
             //cap nhat trang thai online
-            CSDL.instance.UpdateOne("Account","AccountName",current.AccountName, "online", "false");
+            CSDL.instance.UpdateOne("Account", "AccountName", current.AccountName, "online", "false");
 
         }
         public void changePass(string newpass)

@@ -35,10 +35,10 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<HoaDon>("HoaDon", filter).Result;
         }
-        public void Them(string id, string tenNhanVienThanhToan, double tongTien, string ghiChu) // ch 
+        public bool Them(string id, string tenNhanVienThanhToan, double tongTien, string ghiChu) // ch 
         {
             HoaDon m = new HoaDon(id,tenNhanVienThanhToan,tongTien,ghiChu);
-            CSDL.instance.Insert<HoaDon>("HoaDon", m);
+            return CSDL.instance.Insert<HoaDon>("HoaDon", m).Result;
         }
         public void CapNhat(string search, string searchvalue, string propertie, string value)
         {

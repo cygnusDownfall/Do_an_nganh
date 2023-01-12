@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-//using System.Net.Http;
 using Newtonsoft.Json;
 using Do_an_nganh_QuanLiOrderMonAn.Class;
 using RestSharp;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Linq;
-using System.ComponentModel;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 {
@@ -140,11 +138,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
 
         }
-        public async void UpdateOne(string CollectionName, string search, string searchvalue, string setpropertie, string value)
+        public  bool UpdateOne(string CollectionName, string search, string searchvalue, string setpropertie, string value)
         {
             if (collectionwithBlock.Contains(CollectionName))
             {
-                return;
+                return false;
             }
             if (searchvalue != null)
             {
@@ -161,9 +159,11 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
 
                 string filter = "\"filter\":{\"" + search + "\":\"" + searchvalue + "\"}";
                 string cmd = filter + "," + update;
-                await SendToMongoAPI(CollectionName, "data/v1/action/updateOne", cmd);
-
+                string res=SendToMongoAPI(CollectionName, "data/v1/action/updateOne", cmd).Result;
+                int num=code.ResupdateToIntRowsImpact(res);
+                return num > 0;
             }
+            return false;
         }
         public async Task<int> UpdateMany(string CollectionName, string filter, string setpropertie, string value)
         {
@@ -241,7 +241,7 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
             }
             else
             {
-                MessageBox.Show("dung sai ham r cha");
+                MessageBox.Show("loi");
                 return false;
             }
         }

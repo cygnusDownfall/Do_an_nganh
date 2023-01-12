@@ -16,14 +16,14 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DAO
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<LichLam>("LichLam", filter).Result;
         }
-        public void Them(int thu, int tuan, int ca, string maNhanVien) // ch 
+        public bool Them(int thu, int tuan, int ca, string maNhanVien) // ch 
         {
             LichLam m = new LichLam(thu,tuan, ca, maNhanVien);
-            CSDL.instance.Insert<LichLam>("LichLam", m);
+           return CSDL.instance.Insert<LichLam>("LichLam", m).Result;
         }
-        public void CapNhat(string search, string searchvalue, string propertie, string value)
+        public bool CapNhat(string search, string searchvalue, string propertie, string value)
         {
-            CSDL.instance.UpdateOne("LichLam", search, searchvalue, propertie, value);
+            return CSDL.instance.UpdateOne("LichLam", search, searchvalue, propertie, value);
         }
         public bool Xoa(int thu, int tuan, int ca)
         {

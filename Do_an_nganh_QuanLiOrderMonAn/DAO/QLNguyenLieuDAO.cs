@@ -7,27 +7,29 @@ using System.Threading.Tasks;
 
 namespace Do_an_nganh_QuanLiOrderMonAn.DAO
 {
-    public class QLNguyenLieu
+    public class QLNguyenLieuDAO
     {
+        QLNguyenLieuDAO() { }
+        public static QLNguyenLieuDAO instance=new QLNguyenLieuDAO();
         public async Task<List<NguyenLieu>> TatCaNguyenLieu()
         {
             return await CSDL.instance.Query<NguyenLieu>("NguyenLieu");
         }
-        public List<NguyenLieu> TimMonAn(string properties, string value)
+        public List<NguyenLieu> Tim(string properties, string value)
         {
             string filter = string.Format("\"{0}\":\"{1}\"", properties, value);
             return CSDL.instance.Query<NguyenLieu>("NguyenLieu", filter).Result;
         }
-        public void ThemMonAn(string tenmonan, int gia, List<NguyenLieu> nguyenlieus, string mota = "")
+        public bool Them(string tenNguyenLieu, string nguonCungCap, string ghiChu)
         {
-            MonAn ma = new MonAn(tenmonan, gia, nguyenlieus, mota);
-            CSDL.instance.Insert<MonAn>("MonAn", ma);
+            NguyenLieu ma=new NguyenLieu(tenNguyenLieu,nguonCungCap,ghiChu);
+            return CSDL.instance.Insert("NguyenLieu", ma).Result;
         }
-        public void CapNhatMonAn(string search, string searchvalue, string propertie, string value)
+        public void CapNhat(string search, string searchvalue, string propertie, string value)
         {
             CSDL.instance.UpdateOne("NguyenLieu", search, searchvalue, propertie, value);
         }
-        public bool XoaMonAn(string tennguyenlieu)
+        public bool Xoa(string tennguyenlieu)
         {
             string filter = "\"TenNguyenLieu\":\"" + tennguyenlieu + "\"";
             return CSDL.instance.RemoveOne("NguyenLieu", filter).Result;
