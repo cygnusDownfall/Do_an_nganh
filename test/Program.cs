@@ -2,6 +2,7 @@
 using Do_an_nganh_QuanLiOrderMonAn.DTO;
 using Do_an_nganh_QuanLiOrderMonAn.BUS;
 using Do_an_nganh_QuanLiOrderMonAn.DAO;
+using System.Collections.Generic;
 
 namespace test
 {
@@ -36,6 +37,12 @@ namespace test
             // QLNhanVienDAO.instance.Them(new NhanVien("NV003","A",DateTime.Parse("17/07/2004"),"Binh duong","0000000"));
             #endregion
 
+            //QLOrderDAO.instance.Them("com chay", "45", 5, 4, "hd005");
+            if(args.Length == 0)
+            {
+                Console.WriteLine("go test -help de bik them thong tin:\n");
+            }
+            
             #region CLI
             if (args.Length < 1)
             {
@@ -62,13 +69,18 @@ namespace test
                     }
                 case "-c":
                     {
+                        if (args.Length == 1)
+                        {
+                            Console.WriteLine("test -c TenCollection CacThamSo");
+                            return;
+                        }
                         switch (args[1])
                         {
                             case "Order":
                                 {
                                     try
                                     {
-                                        if(QLOrderDAO.instance.Them(args[2], args[3],Convert.ToInt32( args[4]), Convert.ToInt32(args[5]), args[6]))
+                                        if (QLOrderDAO.instance.Them(args[2], args[3], Convert.ToInt32(args[4]), Convert.ToInt32(args[5]), args[6]))
                                         {
                                             Console.WriteLine("Them thanh cong!");
                                         }
@@ -90,7 +102,7 @@ namespace test
                                 {
                                     try
                                     {
-                                        if (QLMonAnDAO.instance.Them(args[2], Convert.ToInt32(args[3]),null, args[4]))
+                                        if (QLMonAnDAO.instance.Them(args[2], Convert.ToInt32(args[3]), null, args[4]))
                                         {
                                             Console.WriteLine("Them thanh cong!");
                                         }
@@ -111,7 +123,7 @@ namespace test
                                 {
                                     try
                                     {
-                                        if (QLNhanVienDAO.instance.Them(new NhanVien(args[2], args[3], DateTime.Parse(args[4]), args[5], args[6]))) 
+                                        if (QLNhanVienDAO.instance.Them(new NhanVien(args[2], args[3], DateTime.Parse(args[4]), args[5], args[6])))
                                         {
                                             Console.WriteLine("Them thanh cong!");
                                         }
@@ -151,7 +163,7 @@ namespace test
                                 {
                                     try
                                     {
-                                        if (QLHoaDonDAO.instance.Them(args[2],args[3], Convert.ToDouble(args[4]), args[6]))
+                                        if (QLHoaDonDAO.instance.Them(args[2], args[3], Convert.ToDouble(args[4]), args[6]))
                                         {
                                             Console.WriteLine("Them thanh cong!");
                                         }
@@ -211,7 +223,7 @@ namespace test
                                 {
                                     try
                                     {
-                                        if (QLTaiKhoanDAO.instance.Them(args[2], args[3], null, args[6]=="true"))
+                                        if (QLTaiKhoanDAO.instance.Them(args[2], args[3], null, args[6] == "true"))
                                         {
                                             Console.WriteLine("Them thanh cong!");
                                         }
@@ -238,25 +250,63 @@ namespace test
                     }
                 case "-r":
                     {
-                        var x = CSDL.instance.Query<object>(args[1]).Result;
+                        if (args.Length == 1)
+                        {
+                            Console.WriteLine("test -r TenCollection DieuKienLocDuLieu");
+                            return;
+                        }
+                        List<object> x;
+                        if (args.Length == 3)
+                        {
+                            x = CSDL.instance.Query<object>(args[1], args[2]).Result;
+                        }
+                        else
+                        {
+                            x = CSDL.instance.Query<object>(args[1]).Result;
+                        }
                         foreach (var y in x) { Console.WriteLine(y); }
                         break;
                     }
                 case "-u":
                     {
+                        if (args.Length == 1)
+                        {
+                            Console.WriteLine("test -u TenCollection ThuocTinhTim GiaTriTim ThuocTinhChinhSua GiaTriMoi");
+                            return;
+                        }
                         CSDL.instance.UpdateOne(args[1], args[2], args[3], args[4], args[5]);
                         break;
                     }
                 case "-d":
                     {
-                        var x = CSDL.instance.RemoveAll(args[1], args[2]).Result;
-                        Console.WriteLine(x);
+                        if (args.Length == 1)
+                        {
+                            Console.WriteLine("test -d TenCollection DieuKienXoa");
+                            return;
+                        }
+                        if (args.Length == 3)
+                        {
+                            var x = CSDL.instance.RemoveAll(args[1], args[2]).Result;
+                            Console.WriteLine(x);
+                        }
+                        else
+                        {
+                            var x = CSDL.instance.RemoveAll(args[1]).Result;
+                            Console.WriteLine(x);
+                        }
+                        break;
+                    }
+                case "-help":
+                    {
+                        Console.WriteLine("-c  thêm "); 
+                        Console.WriteLine("-r đọc dữ liệu ");
+                        Console.WriteLine("-u  cập nhật dữ liệu ");
+                        Console.WriteLine("-d xóa dữ liệu ");
                         break;
                     }
             }
             #endregion
-            //end
-            //Console.ReadKey();
+        
         }
     }
 }

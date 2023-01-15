@@ -80,12 +80,12 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         {
             string res = "";
             if (collectionwithBlock.Contains(CollectionName))
-            {
-                addBlock(CollectionName, JsonConvert.SerializeObject(value));
+            {   string s = JsonConvert.SerializeObject(value);
+                res= await addBlock(CollectionName,s );
             }
             else
             {
-                await SendToMongoAPI(CollectionName, "data/v1/action/insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
+               res= await SendToMongoAPI(CollectionName, "data/v1/action/insertOne", "\"document\":" + JsonConvert.SerializeObject(value));
             }
             if (res == "") return false;
             return true;
@@ -250,18 +250,19 @@ namespace Do_an_nganh_QuanLiOrderMonAn.DTO
         #endregion
         #region Block
 
-        public void addBlock(string collection, string bodydoc, string id = "")
+        public async Task<string> addBlock(string collection, string bodydoc, string id = "")
         {
             if (id != "")
             {
-                id = "\"id\":\"" + id + "\"";
+                id = "\"id\":\"" + id + "\",";
             }
             string body = "{ \n \"database\" : \"QLOrderMonAn\"," +
                 " \"collection\" : \"" + collection + "\",  " +
                 id +
-                " \"bodydoc\" : \"" + bodydoc + " \",\n}";
+                " \"bodydoc\" : " + bodydoc + " \n}";
 
-            string res = RestRequest(apiinfo.Url + "addBlock", body).Result;
+            string res =await RestRequest("addBlock", body);
+            return res;
         }
         public T findBlock<T>(string collection, string id, int go)
         {

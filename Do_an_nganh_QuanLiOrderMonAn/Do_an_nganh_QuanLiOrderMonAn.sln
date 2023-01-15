@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Do_an_nganh_QuanLiOrderMonA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "..\test\test.csproj", "{AA818B9C-8507-4CDE-B7B7-B1CCB6F29D83}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "..\Setup1\Setup1.vdproj", "{6A442341-CE74-49E6-AE8B-B63049C3A9EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,16 @@ Global
 		{AA818B9C-8507-4CDE-B7B7-B1CCB6F29D83}.Release|x64.Build.0 = Release|Any CPU
 		{AA818B9C-8507-4CDE-B7B7-B1CCB6F29D83}.Release|x86.ActiveCfg = Release|Any CPU
 		{AA818B9C-8507-4CDE-B7B7-B1CCB6F29D83}.Release|x86.Build.0 = Release|Any CPU
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Debug|Any CPU.ActiveCfg = Debug
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Debug|ARM.ActiveCfg = Debug
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Debug|ARM64.ActiveCfg = Debug
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Debug|x64.ActiveCfg = Debug
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Debug|x86.ActiveCfg = Debug
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Release|Any CPU.ActiveCfg = Release
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Release|ARM.ActiveCfg = Release
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Release|ARM64.ActiveCfg = Release
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Release|x64.ActiveCfg = Release
+		{6A442341-CE74-49E6-AE8B-B63049C3A9EF}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
